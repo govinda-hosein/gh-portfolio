@@ -5,7 +5,13 @@ import HeaderLink from "./HeaderLink.astro";
 
 <header>
   <nav>
-    <h2><a href="/">{SITE_TITLE}</a></h2>
+    <span class="flex flex-row items-center gap-2"
+      ><img src="img/me.png" class="w-12" alt="" />
+      <h2 class="flex flex-row">
+        <a href="/">{SITE_TITLE}</a>
+      </h2>
+    </span>
+
     <div class="internal-links">
       <HeaderLink href="/">Blog</HeaderLink>
       <HeaderLink href="/portfolio">Portfolio</HeaderLink>
