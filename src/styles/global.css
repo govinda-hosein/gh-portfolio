@@ -161,6 +161,21 @@ hr {
   white-space: nowrap;
 }
 
+.last-updated-on {
+  font-style: italic;
+}
+
+.hero-image {
+  width: 100%;
+}
+
+.hero-image img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+}
+
 /* Gradients */
 .black-gradient {
   background: #000000; /* fallback for old browsers */
