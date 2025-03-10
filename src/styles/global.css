@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
 :root {
+  --secondary: #aaa6c3;
+  --background: #050816;
+  --highlight: #915eff;
+  --text: #ffffff;
   --accent: #2337ff;
   --accent-dark: #000d8a;
-  --black: 15, 18, 25;
   --gray: 96, 115, 159;
   --gray-light: 229, 233, 240;
   --gray-dark: 34, 41, 57;
@@ -13,7 +16,10 @@
 }
 
 @theme {
-  --color-primary-highlight: #4a007e;
+  --color-highlight: #915eff;
+  --color-background: #050816;
+  --color-text: #ffffff;
+  --color-secondary: #aaa6c3;
 }
 
 @font-face {
@@ -35,13 +41,12 @@ body {
   margin: 0;
   padding: 0;
   text-align: left;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
   background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: rgb(var(--gray-dark));
   font-size: 20px;
   line-height: 1.7;
+  @apply text-text bg-background;
 }
 main {
   width: 720px;
