@@ -5,6 +5,8 @@ pubDate: "November 20 2019"
 heroImage: "/img/blog/2019/3425171.jpg"
 ---
 
+
+
 Sounds are a necessity for video games as they provide a significant portion of information and atmosphere to the player. As such, having a sound manager in any game project is a must. This article describes an approach for developing and implementing a sound manager in Unity ideal for small games.
 
 A game sound manager should at least possess the following properties:
@@ -15,6 +17,32 @@ A game sound manager should at least possess the following properties:
 <br/>
 The sound manager described below only consists of a single monobehaviour and associated audio files for simplicity. Consider a “SoundManager” gameobject added to the game's first scene. In the awake method:
 
+
+
 <code>
-hello
+```csharp 
+// Use this for initialization
+   void Awake () {
+       //Singleton Pattern
+       if (!_firstRun)
+       {
+           Destroy(this);
+           return;
+       }
+           _firstRun = false;
+           DontDestroyOnLoad(this.gameObject);
+           //Get States from PlayerPrefs here to manage settings
+ 
+           //Initializing static instance and Audio Sources
+           Instance = this;
+           InitializeAudioSources();
+           PlayAmbient(SoundLocation.AmbMenu1);
+ 
+           //Adding UpdateAmbient method to be called whenever the scene changes
+           SceneManager.sceneLoaded += UpdateAmbient;
+        
+   }
+```
 </code>
+
+This gameobject employs a singleton pattern that self destroys if it isn't the only instance. This is done using lines 4-8 where <span class="text-yellow-500">_firstRun</span> is a static boolean set to true by default. Afterwards, the gameobject sets itself to persist through scenes via the DontDestroyOnLoad call. Below, you can then load settings previously saved via Unity's PlayerPrefs. An example of using PlayerPrefs can be found here. The gameobject then initializes its own static instance and its audio sources. Finally, it attaches a method UpdateAmbient to be called whenever the scene changes via SceneManager.sceneLoaded. This is useful for if you wish to change the ambient music whenever the scene changes.

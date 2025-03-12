@@ -114,10 +114,22 @@ img {
   height: auto;
   border-radius: 8px;
 }
+
 code {
-  padding: 2px 5px;
-  background-color: var(--highlight);
-  border-radius: 2px;
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1.5rem;
+  padding-right: 0.5rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115, 138, 148, 0.4);
+  border-right: 1px solid currentColor;
 }
 
 pre {
