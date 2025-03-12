@@ -90,6 +90,9 @@ a {
 a:hover {
   filter: brightness(80%);
 }
+ol {
+  @apply list-decimal pl-12;
+}
 p {
   margin-bottom: 1em;
 }

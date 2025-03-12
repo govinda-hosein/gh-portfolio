@@ -1,0 +1,20 @@
+---
+title: "Unity – Building a Simple Reusable Singleton Sound Manager"
+description: ""
+pubDate: "November 20 2019"
+heroImage: "/img/blog/2019/3425171.jpg"
+---
+
+Sounds are a necessity for video games as they provide a significant portion of information and atmosphere to the player. As such, having a sound manager in any game project is a must. This article describes an approach for developing and implementing a sound manager in Unity ideal for small games.
+
+A game sound manager should at least possess the following properties:
+1. Easily accessible from any class without having to instantiate a copy.
+2. Accessible across all Unity scenes 
+3. Possess the capability of adjusting settings (eg. volume)
+
+<br/>
+The sound manager described below only consists of a single monobehaviour and associated audio files for simplicity. Consider a “SoundManager” gameobject added to the game's first scene. In the awake method:
+
+<code>
+hello
+</code>
