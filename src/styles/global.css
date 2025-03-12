@@ -115,6 +115,10 @@ img {
   border-radius: 8px;
 }
 
+.highlight {
+  @apply bg-highlight px-2 rounded-sm text-white;
+}
+
 code {
   counter-reset: step;
   counter-increment: step 0;
@@ -123,7 +127,7 @@ code {
 code .line::before {
   content: counter(step);
   counter-increment: step;
-  width: 1.5rem;
+  width: 2rem;
   padding-right: 0.5rem;
   margin-right: 0.5rem;
   display: inline-block;
