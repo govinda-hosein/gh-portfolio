@@ -46,4 +46,106 @@ The sound manager described below only consists of a single monobehaviour and as
 </code>
 
 <br/>
-This gameobject employs a singleton pattern that self destroys if it isn't the only instance. This is done using lines 4-8 where <span class="highlight">_firstRun</span> is a static boolean set to true by default. Afterwards, the gameobject sets itself to persist through scenes via the <span class="highlight">DontDestroyOnLoad</span> call. Below, you can then load settings previously saved via Unity's PlayerPrefs. An example of using PlayerPrefs can be found <a href="https://docs.unity3d.com/ScriptReference/PlayerPrefs.GetString.html">here</a>. The gameobject then initializes its own static instance and its audio sources. Finally, it attaches a method <span class="highlight">UpdateAmbient</span> to be called whenever the scene changes via <span class="highlight">SceneManager.sceneLoaded</span>. This is useful for if you wish to change the ambient music whenever the scene changes.
+This gameobject employs a singleton pattern that self destroys if it isn't the only instance. This is done using lines 4-8 where <span class="highlight">_firstRun</span> is a static boolean set to true by default. Afterwards, the gameobject sets itself to persist through scenes via the <span class="highlight">DontDestroyOnLoad</span> call. Below, you can then load settings previously saved via Unity's PlayerPrefs. An example of using PlayerPrefs can be found <a href="https://docs.unity3d.com/ScriptReference/PlayerPrefs.GetString.html" target="_blank">here</a>. The gameobject then initializes its own static instance and its audio sources. Finally, it attaches a method <span class="highlight">UpdateAmbient</span> to be called whenever the scene changes via <span class="highlight">SceneManager.sceneLoaded</span>. This is useful for if you wish to change the ambient music whenever the scene changes.
+
+## Initializing Audio Sources
+
+Unity employs a flexible and powerful audio system with audio sources being a key component. If you are not familiar with Unity's audio system, it's helpful to have a look at the <a href="https://docs.unity3d.com/Manual/AudioOverview.html" target="_blank">Audio Overview</a> section in references. For the purposes of this article, audio is categorized to only **Ambient** and **Effects**. The <span class="highlight">InitializeAudioSources()</span> method is provided below.
+
+<code>
+```csharp 
+private void InitializeAudioSources()
+{
+    _ambient = this.gameObject.AddComponent<AudioSource>();
+    _effects = this.gameObject.AddComponent<AudioSource>();
+}
+```
+</code>
+
+<br/>
+<span class="highlight">InitializeAudioSources()</span>  attaches two (2) new audiosources to the gameobject for each of the audio types. Having multiple audiosources allows for multiple audio clips to be played simultaneously. This facilitates the majority of scenarios where ambient music is playing and an effect sound is to be played on top of it. **_ambient** and **_effects** are two (2) private global variables. The code snippet below shows an example of what playing ambient and effect sounds look like.
+
+<code>
+```csharp
+public void PlayAmbient(SoundLocation sl)
+  {
+      if (_soundAmbient)
+      {
+          _ambient.clip = (AudioClip)Resources.Load(GetSoundLoc(sl));
+          _ambient.loop = true;
+          _ambient.volume = _ambVolume;
+          _ambient.Play();
+      }
+      else
+      {
+          _ambient.Stop();
+      }
+  }
+ 
+  public void PlayEffect(SoundLocation sl)
+  {
+      if (!_soundEffects)
+      {
+          return;
+      }
+      _effects.loop = false;
+      _effects.volume = 0.7f;
+      _effects.PlayOneShot((AudioClip)Resources.Load(GetSoundLoc(sl)));
+ 
+  }
+```
+</code>
+
+<br/>
+**SoundLocation** will be described later on but it essentially produces a path to the audioclip to be played.
+
+You’ve now essentially got a gameobject that can be accessed across different scenes and in other monobehaviours in one line statements such as:
+
+<code>
+```csharp 
+	
+SoundManager.Instance.PlayBossMusic();
+```
+</code>
+
+## Selecting AudioClips via Unity Editor
+
+Simple so far right? Now moving on to actually using this manager across other gameobjects. The Unity Editor is extremely powerful, allowing you to set variables in Unity directly rather than through the IDE. As such, it may be desirable to be able to set audioclips directly from the editor. There are a few methods of doing this.
+
+###### 1. Setting AudioClip Path as a String
+You can create methods that take in a string parameter indicative the audioclip’s location. In the Unity Editor, you can then type in this string directly. It would then be sent to a command such as <span class="highlight">(AudioClip)Resources.Load(path)</span>. The obvious problem with this approach is that if the audio file needs to be changed, all the individual strings would need to be changed. At the time of writing, it is not possible to enter a constant or variable name into the Unity Editor, so you'd have to type in that path every time.
+
+###### 2. Combining Enums with toString()
+
+Fortunately, Unity allows developers to select enums directly in the editor, so we can combine this with **toString()** to generate paths. Consider the enum below.
+
+<code>
+```csharp 
+public enum SoundLocation
+{
+    AmbMenu1,AmbBoss1,AmbGame1,
+    EffHurt,EffPlayerHurt, EffPlayerDie,
+    WeapPStandard,
+    WeapE1, WeapEMine, WeapEBoss1,
+}
+```
+</code>
+
+Where each of those enum represents the name of an audioclip in the resources folder. To translate into a path, you'd use a method such as the one below.
+
+<code>
+```csharp 
+public string GetSoundLoc(SoundLocation sl)
+{
+    return "Sounds/" + sl.ToString();
+}
+```
+</code>
+
+This approach allows you to easily select clips from the editor. You can even split up ambient and effect sounds into separate enums to make selections easier.
+
+###### Disadvantages of Using Enums 
+
+There are many articles online detailing the effects enums have on android performance from 2015-2017. I’m uncertain if these performance issues are still present but it may be investigation if you possess are significantly large amount of audioclips to implement.
+
+And that's it! You've now got a sound manager for your Unity games.
