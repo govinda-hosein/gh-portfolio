@@ -53,3 +53,56 @@ public class Service : MonoBehaviour
 }
 ```
 </code>
+
+Note that the delegate blueprint is provided outside the main script. In this example, delegates are used in a similar way to classes. Defining then instantiating objects from it. This particular delegate requires 2 integer inputs and returns an integer result. This means that the callback function must follow this same signature. Delegates are a simple way to implement callback functionality in the form of variables. If multiple callbacks of unknown number need to be called, delegates can be used with lists.
+
+## Method 2: Action Delegate
+
+<a href="https://docs.microsoft.com/en-us/dotnet/api/system.action-1?view=netframework-4.8">Microsoft</a> defines actions as a delegate that accepts parameters (up to 16) and does not return to value. Consider the code snippet below.
+
+<code>
+```csharp 
+// Start is called before the first frame update
+void Start()
+{
+    //Creating delegate instances
+    Action<int,int> pn1 = AddNumbers;
+    Action<int,int> pn2 = SubtractNumbers;
+    //Calling functions
+    pn1(2,2);
+    pn2(2,2);
+}
+ 
+public void AddNumbers(int a, int b){
+    Debug.Log(a + b);
+}
+public void SubtractNumbers(int a, int b){
+    Debug.Log(a - b);
+}
+```
+</code>
+
+Notice from the snippet above that both actions return void as per their definition. This is the biggest difference between actions and delegates. Using actions however does reduce the size of the code as well as makes it more readable. So in development, essentially you should think about using actions first and if unsuitable, use delegates.
+
+## Method 3: Unity Events
+
+Unity Events are unity's specific implementation of callbacks and are quite simple to implement whilst being powerful. The following are the most common statements you may use with Unity Events.
+
+<code>
+```csharp 
+//Declares a public unity event variable that can be manipulated from the inspector
+public UnityEvent callbacks;
+ 
+//Adds a callback function
+callbacks.AddListener(func);
+ 
+//Invokes all functions added to unityevent variable
+callbacks.Invoke();
+```
+</code>
+
+The screenshot below shows inspector view of the unity event.
+
+<img class="mx-auto" src="/img/blog/2020/unity_events.png"/>
+
+Notice that the UnityEvent appears as a list so you can add multiple callbacks to this single variable. The invoke() method will run all functions added. This makes your codebase alot smaller, moreso since gameobjects can simply be dragged and dropped in the inspector and the function selected to be added as a callback.
