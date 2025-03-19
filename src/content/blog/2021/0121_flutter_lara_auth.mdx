@@ -1,0 +1,175 @@
+---
+title: "Authentication between a Flutter App and Laravel API using Socialite and Sanctum"
+description: ""
+pubDate: "January 21 2021"
+heroImage: "/img/blog/2019/3425171.jpg"
+---
+
+import Highlight from "@components/Highlight.astro";
+
+## Introduction
+
+The goal is to develop a flutter app that can make CRUD requests via a Laravel web API. These operations should only be allowed to authorized users via tokens. This tutorial assumes you are already familiar with the basics of both laravel and flutter and won't go in-depth into their basics.
+
+## Setting up the Laravel API
+
+First off, we'll set up a fresh laravel project that provides an API our mobile app can authenticate with. Run the command
+
+<code>
+```bash 
+laravel new project-name
+```
+</code>
+
+### Install Laravel Sanctum
+
+Afterward, connect up a test database and populate the .env file. Next, we'll install Laravel Sanctum. According to the docs, sanctum provides featherweight authentication systems for SPAs, mobile applications and simple based token APIs. Sanctum will be a lot easier to set up than Laravel Passport. You can read more on this library on the official docs. Install via the command.
+
+<code>
+```bash 
+composer require laravel/sanctum
+```
+</code>
+
+Next up, we'll publish the sanctum configuration and migration files using the command.
+
+<code>
+```bash 
+	
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+```
+</code>
+
+Don’t migrate as yet, there are some adjustments we need to make later on. In the User Model, add <Highlight>HasApiTokens</Highlight> traits
+
+<code>
+```php 
+use Laravel\Sanctum\HasApiTokens;
+ 
+class User extends Authenticatable
+{
+    use HasApiTokens;
+}
+```
+</code>
+
+### Install and configure Socialite
+
+We’ll use Socialite to authenticate with OAuth providers that our flutter app will implement. Socialite supports Google, Facebook, Twitter and more. Users can also log into the web app via these providers. Run the command:
+
+<code>
+```bash 
+composer require laravel/socialite
+```
+</code>
+
+Add the array for the OAuth providers in the config/services.php file. This tutorial only uses google provider.
+
+<code>
+```php 
+'google' => [
+    'client_id' => env('GOOGLE_CLIENT_ID'),
+    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    'redirect' => env('GOOGLE_REDIRECT_URI'),
+],
+```
+</code>
+
+You can set up credentials via the link <a href="https://console.developers.google.com/apis/dashboard">https://console.developers.google.com/apis/dashboard</a>. Once obtained, add the <Highlight>GOOGLE_CLIENT_ID</Highlight>, <Highlight>GOOGLE_CLIENT_SECRET</Highlight> and <Highlight>GOOGLE_REDIRECT_URI</Highlight> keys to your env file. Make sure to note the Redirect URI that you'll be using.
+
+### Update User Table
+
+Simply make the password field <Highlight>nullable</Highlight> in the <Highlight>create_users_table</Highlight> migration file. Since we'll be doing authentication via tokens, the password field should be nullable.
+
+<code>
+```php 
+$table->string('password')->nullable();
+```
+</code>
+
+Once done, run the migrations
+
+<code>
+```bash 
+php artisan migrate
+```
+</code>
+
+Create an API controller via the command
+
+<code>
+```bash 
+php artisan make:controller APIController
+```
+</code>
+
+Next, add functions <Highlight>requestToken</Highlight> and <Highlight>requestTokenGoogle</Highlight> to this controller.
+
+<code>
+```php 
+<?php
+ 
+namespace App\Http\Controllers;
+ 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+ 
+class APIController extends Controller
+{
+    // login not using a provider
+    protected function requestToken(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'device_name' => 'required',
+        ]);
+ 
+        // getting user
+        $user = User::where('email', $request->email)->first();
+         
+        // checking credentials
+        if( !$user || !Hash::check($request->password, $user->password)){
+            throw ValidationException::withMessage([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
+ 
+        // Returning response
+        return response()->json($this->getUserAndToken($user, $request->device_name));
+ 
+    }
+ 
+    protected function requestTokenGoogle(Request $request){
+        // Getting the user from socialite using token from google
+        $user = Socialite::driver('google')->stateless()->userFromToken($request->token);
+         
+        // Getting or creating user from db
+        $userFromDb = User::firstOrCreate(
+            ['email' => $user->email],
+            [
+                'email_verified_at' => now(),
+                'name' => $user->name,
+                'status' => true,
+            ]
+            );
+   
+        // Returning response
+        return response()->json($this->getUserAndToken($userFromDb, $request->device_name));
+    }
+ 
+    //region Helpers
+ 
+    private function getUserAndToken(User $user, $device_name){
+        return [
+            'User' => $user,
+            'Access-Token' => $user->createToken($device_name)->plainTextToken,
+        ];
+    }
+    //endregion
+}
+```
+</code>
+
+When done, add the routes and this method to your <Highlight>routes/api.php</Highlight> file.
