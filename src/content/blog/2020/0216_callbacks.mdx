@@ -1,0 +1,55 @@
+---
+title: "Callbacks in Unity/C#"
+description: ""
+pubDate: "February 16 2020"
+heroImage: "/img/blog/2019/3425171.jpg"
+---
+
+## What are callbacks and why should I even care?
+
+A callback is defined as an invitation for a second audition or interview.....heh. In programming, callbacks are code that is passed as an argument to other code which is expected to be executed upon fulfilling some conditions. Consider the example below.
+
+- A multiplayer mobile game where a device is either a server or a client
+- There is a single communications class on all devices that manages that state information of objects in the game. If the device is the server, it will use this class to send updates to other client devices. The client will use the communications class to send what actions its performed back to the server to process.
+
+
+In this scenario, both server and client will want to run some code whenever the communications class updates its state. One solution is to simply have the components regularly poll the communications class but as you can imagine, this is wildly inefficient. Another solution would be to simply inject server and client code into the communications class and run those whenever the communications class updates. The problem with this approach is that everytime the communications class updates, it must check whether the device is a server or client and then proceed to call only that code. While this approach isn't wildly inefficient, it does make for uglier code and more tightly coupled code, making maintenance a bit more tricky.
+
+This is where callbacks comes in really handy. With callbacks, the server and client class can simply register its own code to be “called” whenever the communications class updates, making for cleaner code and better decoupling. The rest of this post will show how to build your own callback system with Unity/C# since Unity has its own UnityEvent system that you can utilize.
+
+## Method 1: Delegates
+
+In my opinion, delegates are the messiest of all the options I've used by my experience with callbacks isn't extensive. According to <a href="https://www.tutorialspoint.com/csharp/csharp_delegates.htm" target="_blank">TutorialsPoint</a>,
+
+> C# delegates are similar to pointers to functions, in C or C++. A delegate is a reference type variable that holds the reference to a method. The reference can be changed at runtime. Delegates are especially used for implementing events and the call-back methods. All delegates are implicitly derived from the System.Delegate class.
+
+Delegates possess a different declaration than usual C# declarations in the form of: <span class="highlight">delegate &lt;return type&gt; &lt;delegate-name&gt; &lt;parameter list&gt;</span>
+
+Consider the simple Unity script below.
+
+<code>
+```csharp 
+delegate int ProcessNums(int a, int b);
+public class Service : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        //Creating delegate instances
+        ProcessNums pn1 = new ProcessNums(AddNumbers);
+        ProcessNums pn2 = new ProcessNums(SubtractNumbers);
+        //Calling functions
+        Debug.Log("AddNumbers: " + pn1(2,2));
+        Debug.Log("SubtractNumbers: " + pn2(2,2));
+    }
+ 
+    public int AddNumbers(int a, int b){
+        return a + b;
+    }
+    public int SubtractNumbers(int a, int b){
+        return a - b;
+    }
+ 
+}
+```
+</code>

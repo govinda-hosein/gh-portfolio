@@ -93,6 +93,10 @@ a:hover {
 ol {
   @apply list-decimal pl-12;
 }
+ul {
+  @apply pl-12 list-disc list-inside my-6;
+}
+
 p {
   margin-bottom: 1em;
 }
