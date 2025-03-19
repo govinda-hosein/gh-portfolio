@@ -1,0 +1,34 @@
+---
+title: "Adding Button Click Listener to Angular DataTable"
+description: ""
+pubDate: "January 4 2021"
+heroImage: "/img/blog/2019/3425171.jpg"
+---
+
+I recently had to build a view for end user to approve or reject row elements in a datatable. Of course, the intuitive way of doing this is to have 2 buttons in each row that the user can click. You would do this when setting the columns property of the datatable, but surprisingly, this took me a bit more time to figure out that I initially expected. This short article provides the solution that I used and hopefully it can help someone else who come across this problem.
+
+## The Scenario 
+
+This article assumes you've already got the angular datatable dependencies set up and a data source available. If not, there are tons of articles out there on how to get started. While I am very new to using angular datatables, the approach that I have been defaulting to is to have a skeleton html table along with an angular function that picks it from the DOM and populates it. To me, this approach produces a cleaner separation of the view and controller logic as opposed to the approach that uses ng-repeat to iterate across the data. So in this case, the skeleton table looks like below.
+
+<code>
+```html 
+<table class="table table-hover w-100" id="datatable_id">
+    <thead>
+        <tr>
+            <th scope="col">col1</th>
+            <th scope="col">col2</th>
+            <th scope="col">col3</th>
+            <th scope="col">col4</th>
+            <th scope="col">col5</th>
+            <th scope="col">col6</th>
+            <th scope="col">col7</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+```
+</code>
+
+In this scenario, <span class="highlight">col7</span> is where we'd like to have our buttons. The final angular controller function then looks like below and we'll step through it.
