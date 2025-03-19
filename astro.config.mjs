@@ -7,16 +7,15 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://govindahosein.com",
   integrations: [mdx(), sitemap()],
   markdown: {
     shikiConfig: {
-      theme: 'night-owl',
-      
+      theme: "night-owl",
     },
-    syntaxHighlight: 'shiki',
+    syntaxHighlight: "shiki",
   },
-  
+
   vite: {
     plugins: [tailwindcss()],
   },
