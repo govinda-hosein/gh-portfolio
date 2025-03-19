@@ -32,3 +32,82 @@ This article assumes you've already got the angular datatable dependencies set u
 </code>
 
 In this scenario, <span class="highlight">col7</span> is where we'd like to have our buttons. The final angular controller function then looks like below and we'll step through it.
+
+<code>
+```js 
+// function accepts prepared datasource and builds a datatable of it
+$scope.populateDataTable = function (data) {
+        // Fetching table element from DOM
+        $scope.dataTable = $('#datatable_id').DataTable({
+            data: data,
+            "columns": [
+            { data: "col1" },
+            { data: "col2" },
+            { data: "col3" },
+            { data: "col4" },
+            { data: "col5" },
+            { data: "col6" },
+            {
+                targets: -1,
+                data: null,
+                render: function (data, type, full, meta) {
+                    var row_id = "row_" + full.id;
+                    return "<div class=\"row text-center\" id=\"" + row_id + "\"> <button  class=\" approveBtn btn btn-success\" title=\"Approve\" style=\"\"><i class=\"fa fa-check\"></i></button>" +
+                            "<button class=\"rejectBtn btn ml-2\" title=\"Reject\" style=\"\"><i class=\"fa fa-times\"></i></button></div>";
+                }
+ 
+            }
+            ],
+            dom: 'lBfrtip',
+            pageLength: 25,
+            buttons: [
+            { extend: 'copy', className: 'btn btn-secondary btn-sm' },
+            { extend: 'excel', className: 'btn btn-secondary btn-sm', title: 'Download as excel sheet' },
+            { extend: 'pdf', className: 'btn btn-secondary btn-sm', title: 'Download as pdf' },
+            { extend: 'print', className: 'btn btn-secondary btn-sm', title: 'Print' }
+            ],
+        });
+        // making buttons appear inline
+        $('#datatable_id_length').addClass('inline-block');
+        $('.dt-buttons').addClass('inline pl-3');
+        $('#datatable_id_filter').addClass('inline float-right');
+        $('#datatable_id_info').addClass('inline-block');
+        $('#datatable_id_paginate').addClass('inline float-right');
+ 
+        // registering click event listener
+        $scope.dataTable.on('click', 'button', function () {
+            // getting the classes of the item that was clicked
+            var action = this.className;
+            // getting row data
+            var row = $scope.dataTable.row($(this).parents('tr')).data();
+ 
+            // if approve button was clicked
+            if (action.includes('approveBtn')) {
+                $scope.approve(row.id);
+            }
+            // else if reject button was clicked
+            else if (action.includes('rejectBtn')) {
+                $scope.reject(row.id);
+            }
+        });
+    }
+```
+</code>
+
+The function accepts data and populates the datatable with it. The following are key points to note from this script.
+
+- Lines 6 - 12 are columns that we pull from the datasource
+- Lines 13 - 20 is where two (2) buttons are shown. The render property is used here as opposed to defaultContent. This is because defaultContent is static and cannot access the row data whereas render can. In this scenario, the full variable represents the row data. Each button container will have an id set to “row_” + full.id that can easily be accessed when the button is cliclked. Note here the approveBtn and rejectBtn classes. These classes do not have associated css but rather used as ids to determine which of the buttons were clicked later on this script.
+- Lines 26 - 30 set up export buttons for the datatable
+- Lines 34 - 38 makes the buttons appear inline
+- Line 41 is where the magic happens (that took me a really long time to discover). Line 41 adds a button click listener to the datatable rows. This however means that it will be called whenever anything is clicked in the row, so we need logic to filter out only when items we are concerned with are clicked. This is where those non-styling css class names come in. Line 43 gets all of the class names that the clicked item possesses. Line 45 gets that row's data in preparation for if either the approve or reject buttons were clicked. We then use the .includes function to determine if the approveBtn or rejectBtn classes are present and run the associated function
+
+And that's it! Your angular controller function will detect when either of the buttons are clicked on each row.
+
+## Things that did not work (before arriving at the final solution)
+
+1. My first attempt was the generate the buttons in the defaultContent property of each row. Quickly learnt that it is not possible to access the row data in that property, making it impossible to determine which row button was clicked.
+2. Then discovered render, which can access the row data. I went ahead and coded the buttons and added ng-click methods in there to call my angular button click function. This, however, did not work as it seems that ng-click does not work when built dynamically like this.
+3. Since ng-click didn't work, I resorted to have the button call a normal javascript function outside of the angular controller. That function would then call the angular function. At first I tried using angular.element to get the scope of the main div element then call the function inside. I believe this approach is now obsolete which is why it didn't work (lol). I didn't dig too deep into figuring out how to make this approach work because I did not like the thought of having a middle man function there like that anyway.
+
+That's all for this article folks, hope this helps someone.
