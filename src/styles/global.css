@@ -49,8 +49,7 @@ body {
   @apply text-text bg-background;
 }
 main {
-  width: 720px;
-  max-width: calc(100% - 2em);
+  max-width: 1000px;
   margin: auto;
   padding: 3em 1em;
 }

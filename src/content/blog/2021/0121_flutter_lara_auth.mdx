@@ -35,7 +35,6 @@ Next up, we'll publish the sanctum configuration and migration files using the c
 
 <code>
 ```bash 
-	
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 ```
 </code>
@@ -173,3 +172,364 @@ class APIController extends Controller
 </code>
 
 When done, add the routes and this method to your <Highlight>routes/api.php</Highlight> file.
+
+<code>
+```php 
+Route::post('requestToken', [APIController::class, 'requestToken']);
+Route::post('requestTokenGoogle', [APIController::class, 'requestTokenGoogle']);
+```
+</code>
+
+That's our base setup for the web api. Our flutter app will perform a google signin, and on a successful signin, pass an access token to our web api. The web api then either gets or creates the user to the db, getting their google profile information via Socialite's userFromToken method. The api then returns a sanctum generated token that the mobile app can then use to perform request via authorization headers.
+
+## Setting up Flutter App 
+
+Typically, I tend to use VSCode for everything but for flutter, I strongly recommend using android studio. It just does everything better for flutter projects but pull more resources and provide a less pretty UI.
+
+### Installing Packages
+
+This tutorial uses the <Highlight>http</Highlight>, <Highlight>provider</Highlight>, <Highlight>device_info</Highlight>, <Highlight>firebase_auth</Highlight>, <Highlight>google_sign_in</Highlight> and <Highlight>flutter_secure_storage</Highlight>. Your <Highlight>pubspec.yaml</Highlight> file should have the following dependencies added then run <Highlight>pub get</Highlight>.
+
+<code>
+```yaml 
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.12.2
+  provider: ^3.0.0
+  device_info: ^0.4.2+8
+  firebase_auth: ^0.16.0
+  google_sign_in: ^4.4.4
+  flutter_secure_storage: ^3.3.5
+```
+</code>
+
+Once done, also make sure to update your <Highlight>minSdkVersion</Highlight> to 23 for <Highlight>firebase_auth</Highlight> to work. The firebase_auth package requires a bit of setup before running the app so let's address that first.
+
+### Setting up Firebase
+
+Log into your <a href="https://console.firebase.google.com/?pli=1">firebase console</a> and <Highlight>Create a project</Highlight>. Follow through the steps presented. Once the project has been created, head over to the <Highlight>Project Overview</Highlight> page and click the android icon to get started adding firebase to the app. Follow the steps provided, the trickiest of those steps is getting the Debug signing certificate SHA-1. While firebase indicates that this step is optional, it's actually required for testing google sign in. To get your debug key, open the file <Highlight>android/build.gradle</Highlight>. In android studio, then click the option to <Highlight>Open for Editing in Android Studio</Highlight>. Android studio will take a moment to open this file. Once android studio is finished loading, expand the Gradle tab on the right side and navigate to <Highlight>android/Tasks/android/signingReport</Highlight> as shown in the screenshot below.
+
+<img src="/img/blog/2021/signing_rep.png"/>
+<p class="text-center">build.gradle signing report</p>
+
+Double click that value and android studio will return the debug key that the project is currently using. Remember that on release build, the release key should be added to firebase. Once that's done, head back to overview and click the <Highlight>Authentication</Highlight> card. Follow through the steps and on the sign-in providers window, enable Google sign in. Firebase auth should now be ready to roll.
+
+### Local Storage Util
+
+I am using the following package structure for this project.
+
+<code>
+```bash
+lib
+	- pages
+	- providers
+	- utils
+	- widgets
+	main.dart
+```
+</code>
+
+We'll start by creating a <Highlight>utils/local_storage.dart</Highlight> to store access tokens. You can also use this file later on to save http responses.
+
+<code>
+```dart 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+ 
+enum LSKey{
+  user,
+}
+ 
+class LocalStorage{
+  static FlutterSecureStorage _storage;
+ 
+  // run this in main.dart to initialize the FlutterSecureStorage property
+  static LocalStorage create(){
+    _storage = new FlutterSecureStorage();
+    return LocalStorage();
+  }
+ 
+  //region Retrieve Functions
+ 
+  static Future<String> retrieve(LSKey key) async {
+    return _storage.read(key: key.toString());
+  }
+ 
+  //endregion
+ 
+  //region Save Functions
+ 
+  static Future<void> save(LSKey key, String data) async {
+    _storage.write(key: key.toString(), value: data);
+  }
+ 
+  //endregion
+ 
+}
+```
+</code>
+
+This Local Storage helper is pretty simple and will be the entry point for reading/writing anything securely. Note that at the time of writing, the <Highlight>flutter_secure_storage</Highlight> package does not work on web apps. The <Highlight>LSKey</Highlight> class helps to keep usage a bit stricter. You can modify this file later on to use a combination of <Highlight>flutter_secure_storage</Highlight> and <Highlight>shared_preferences</Highlight>. Next, let's build a <Highlight>HttpClient</Highlight> class to perform our API requests. Store this in <Highlight>utils/http_client.dart</Highlight>.
+
+<code>
+```dart 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+ 
+// enum for http verbs
+enum HttpRequestType{
+  get,
+  post,
+  delete
+}
+ 
+// args to be sent to client to make request
+class HttpArgs{
+  final String url;
+  final HttpRequestType verb;
+  final dynamic body;
+  final bool useAuthorization;
+ 
+  HttpArgs({
+    @required this.url,
+    this.verb = HttpRequestType.get,
+    this.body = '',
+    this.useAuthorization = true,
+  });
+}
+ 
+class HttpClient {
+  static const API_URL = 'http://192.168.0.101:8000/api/';
+  static dynamic _authHeaders;
+ 
+  // helper to build urls
+  static String apiUrl(String path){
+    return API_URL + path;
+  }
+ 
+  // make http request
+  static Future<http.Response> request(HttpArgs args) async {
+    http.Response response;
+    switch(args.verb){
+      case HttpRequestType.get:
+        response = await http.get(args.url,
+            headers: args.useAuthorization ? _authHeaders : {});
+        break;
+ 
+      case HttpRequestType.post:
+        response = await http.post(args.url,
+          body: args.body,
+          headers: args.useAuthorization ? _authHeaders : {}
+        );
+        break;
+ 
+      default:
+        throw Exception('Invalid Http Request Type');
+        break;
+ 
+    }
+    return response;
+  }
+ 
+}
+```
+</code>
+
+The <Highlight>API_URL</Highlight> property is web api's address that we can add paths to. The <Highlight>_authHeaders</Highlight> property is where you'll store the sanctum token once retrieved make authorized API calls later on. Once this class is imported, we can make request via the static method <Highlight>HttpClient.request(args)</Highlight> which is convenient. Now that we have both <Highlight>LocalStorage</Highlight> and <Highlight>HttpClient</Highlight> set up, we can create a login widget. Create the file <Highlight>lib/pages/auth/login.dart</Highlight> and paste in the contents.
+
+<code>
+```dart 
+import 'package:device_info/device_info.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:gaptt_mobile/utils/http_client.dart';
+import 'package:gaptt_mobile/utils/local_storage.dart';
+ 
+class Login extends StatefulWidget{
+  @override
+  _LoginState createState() => _LoginState();
+}
+ 
+class _LoginState extends State<Login>{
+ 
+  //region Properties
+ 
+  FirebaseUser _user;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+ 
+  //endregion
+ 
+  @override
+  void initState(){
+    super.initState();
+  }
+ 
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          RaisedButton(
+            child: Text('Sign in With Google'),
+            onPressed: () async {
+              loginWithGoogle();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+ 
+ 
+  //region Login Methods
+  Future<bool> login(String email, String password) async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    print('logging in with credentials');
+ 
+    // build post body
+    dynamic body = {
+      'email': email,
+      'password': password,
+      'device_name': androidInfo.id,
+    };
+ 
+    // build httpArgs
+    HttpArgs args = new HttpArgs(
+      url: HttpClient.apiUrl('requestToken'),
+      verb: HttpRequestType.post,
+      body: body,
+      useAuthorization: false,);
+ 
+    // make request and await response
+    final response = await HttpClient.request(args);
+    if(response.statusCode == 200){
+      print('user authenticated.');
+      LocalStorage.save(LSKey.user, response.body);
+      return true;
+    }else{
+      print('authentication failed');
+      return false;
+    }
+ 
+  }
+ 
+  Future<bool> loginWithGoogle() async {
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+    AuthCredential credential = GoogleAuthProvider.getCredential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken
+    );
+    AuthResult authResult = await _auth.signInWithCredential(credential);
+    _user = authResult.user;
+    FirebaseUser currentUser = await _auth.currentUser();
+ 
+    // getting device name
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+ 
+    print("User Access Token: ${googleSignInAuthentication.accessToken}");
+ 
+    // building request body
+    dynamic body = {
+      'token': googleSignInAuthentication.accessToken,
+      'device_name': androidInfo.id,
+    };
+ 
+    // making request to web api
+    HttpArgs args = new HttpArgs(
+      url: HttpClient.apiUrl('requestTokenGoogle'),
+      verb: HttpRequestType.post,
+      useAuthorization: false,
+      body: body,
+    );
+ 
+    // make request and await response
+    final response = await HttpClient.request(args);
+    if(response.statusCode == 200){
+      print('user authenticated using google sign in. sending info to accountProvider');
+      LocalStorage.save(LSKey.user, response.body);
+      return true;
+    }else{
+      print('authentication failed');
+      return false;
+    }
+  }
+//endregion
+}
+```
+</code>
+
+The UI itself is as simple as it gets, a raised button that when clicked, will ask the user to sign in with their google account. The two main functions in this program are login and <Highlight>loginWithGoogle</Highlight>, both of which have routes created in our web api. Once either of them are called, the result is a sanctum token that you then save and use in <Highlight>_authHeaders</Highlight> to access the API. The final step is the <Highlight>main.dart</Highlight> file.
+
+<code>
+```dart 
+import 'package:flutter/material.dart';
+import 'package:gaptt_mobile/pages/auth/login.dart';
+import 'utils/local_storage.dart';
+ 
+void main() {
+  LocalStorage.create();
+  runApp(MyApp());
+}
+ 
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    //Initializing localstorage
+ 
+    return MaterialApp(
+      title: 'Sanctum Mobile',
+      home: new Scaffold(
+        body: Center(
+            child: Login()
+        ),
+      ),
+    );
+  }
+}
+```
+</code>
+
+And that's it! Run your web server via the command:
+
+<code>
+```bash 
+php artisan serve --host=0.0.0.0
+```
+</code>
+
+This command runs your web app while making it accessible to other computers on your network. This is necessary for the mobile app to reach it. When you run the flutter app, click the login button and you should see the google login prompt. Once authorized, the app will communicate with the web server and return you the user information and the sanctum token. You'd then save that token to make future authorized requests.
+
+## Troubleshooting Notes
+
+### Plugin project :firebase_core_web not found
+
+If you encounter this error when building, try replacing <Highlight>android/settings.gradle</Highlight> file with:
+
+<code>
+```bash 
+include ':app'
+ 
+def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
+ 
+def plugins = new Properties()
+def pluginsFile = new File(flutterProjectRoot.toFile(), '.flutter-plugins')
+if (pluginsFile.exists()) {
+    pluginsFile.withReader('UTF-8') { reader -&gt; plugins.load(reader) }
+}
+ 
+plugins.each { name, path -&gt;
+    def pluginDirectory = flutterProjectRoot.resolve(path).resolve('android').toFile()
+    include ":$name"
+    project(":$name").projectDir = pluginDirectory
+}
+```
+</code>
+
+Source: <a href="https://stackoverflow.com/questions/61732409/plugin-project-firebase-core-web-not-found">Plugin project :firebase_core_web not found</a> 
