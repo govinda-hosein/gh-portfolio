@@ -5,6 +5,8 @@ pubDate: "January 4 2021"
 heroImage: "/img/blog/2019/3425171.jpg"
 ---
 
+import Highlight from "@components/Highlight.astro";
+
 I recently had to build a view for end user to approve or reject row elements in a datatable. Of course, the intuitive way of doing this is to have 2 buttons in each row that the user can click. You would do this when setting the columns property of the datatable, but surprisingly, this took me a bit more time to figure out that I initially expected. This short article provides the solution that I used and hopefully it can help someone else who come across this problem.
 
 ## The Scenario 
