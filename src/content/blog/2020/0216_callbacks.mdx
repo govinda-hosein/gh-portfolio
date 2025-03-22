@@ -54,7 +54,7 @@ public class Service : MonoBehaviour
  
 }
 ```
-</code>
+</code><br/>
 
 Note that the delegate blueprint is provided outside the main script. In this example, delegates are used in a similar way to classes. Defining then instantiating objects from it. This particular delegate requires 2 integer inputs and returns an integer result. This means that the callback function must follow this same signature. Delegates are a simple way to implement callback functionality in the form of variables. If multiple callbacks of unknown number need to be called, delegates can be used with lists.
 
@@ -82,7 +82,7 @@ public void SubtractNumbers(int a, int b){
     Debug.Log(a - b);
 }
 ```
-</code>
+</code><br/>
 
 Notice from the snippet above that both actions return void as per their definition. This is the biggest difference between actions and delegates. Using actions however does reduce the size of the code as well as makes it more readable. So in development, essentially you should think about using actions first and if unsuitable, use delegates.
 
@@ -101,7 +101,7 @@ callbacks.AddListener(func);
 //Invokes all functions added to unityevent variable
 callbacks.Invoke();
 ```
-</code>
+</code><br/>
 
 The screenshot below shows inspector view of the unity event.
 

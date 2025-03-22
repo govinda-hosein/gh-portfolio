@@ -20,12 +20,12 @@ Now onto deployment.
 
 1. SSH into the deployment server and move into the directory intended for files to be placed (not publichtml).
 2. Run the command below using the project's repository URL
-
+<br/>
 <code>
 ```bash 
 git clone
 ```
-</code>
+</code><br/>
 Credentials will be requested for the source code files to be downloaded. An alternative method would also be to zip the project files and upload to server manually.
 
 3. In the root directory, make a copy of the env.example file and name it .env. This env file holds the environment configuration values for the Laravel web app and is not committed into source control as its values will differ between environments. The table below shows the main configuration values to be filled.
@@ -41,34 +41,34 @@ Credentials will be requested for the source code files to be downloaded. An alt
 Suggested to set the APP_DEBUG variable to true during deployment. Once the deployment is successful, it can be changed to false.
 
 4. The APP_KEY variable is populated by running the command:
-
+<br/>
 <code>
 ```bash 
 php artisan key:generate
 ```
-</code>
+</code><br/>
 
 5. Once complete, run the following composer command to populate your web application's dependencies
-
+<br/>
 <code>
 ```bash 
 composer install
 ```
-</code>
+</code><br/>
 
 In a local environment, <Highlight>composer update</Highlight> can be run to update all dependencies. However, running this command in a shared hosting environment may timeout. Instead <Highlight>composer install</Highlight>  is used to only install the dependencies listed in the <Highlight>composer.lock</Highlight> file.
 
 6. Node modules can be installed by running the commands
-
+<br/>
 <code>
 ```bash 
 npm install
 npm run production
 ```
-</code>
+</code><br/>
 
 7. (Situational Step) The index.php file within the public folder is the entrance point for all users upon first loading the site. As such, it can be separated from the rest of the project and the paths within the index file simply be updated to reflect where the project resides. The two (2) paths to be updated are autoload.php and bootstrap/app.php. The code below shows the original index file and points to be updated.
-
+<br/>
 <code>
 ```php 
 <!--?php
@@ -129,14 +129,14 @@ $response = $kernel->handle(
 $response->send();
 $kernel->terminate($request, $response);
 ```
-</code>
+</code><br/>
 
 8. At this point, the web app is ready to build its database tables and relationships. This is performed by running the command
-
+<br/>
 <code>
 ```bash  
 php artisan migrate --seed
 ```
-</code>
+</code><br/>
 
 If there are any dependencies missing, laravel will throw detailed error messages toresolve the issue.The web app can now be visited at its designated URL. A full manual test of the (with <Highlight>APP_DEBUG</Highlight> set to true) should be performed at this point to ensure the installation was successful.

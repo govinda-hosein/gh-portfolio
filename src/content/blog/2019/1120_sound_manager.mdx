@@ -44,7 +44,7 @@ The sound manager described below only consists of a single monobehaviour and as
         
    }
 ```
-</code>
+</code><br/>
 
 <br/>
 This gameobject employs a singleton pattern that self destroys if it isn't the only instance. This is done using lines 4-8 where <Highlight>_firstRun</Highlight> is a static boolean set to true by default. Afterwards, the gameobject sets itself to persist through scenes via the <Highlight>DontDestroyOnLoad</Highlight> call. Below, you can then load settings previously saved via Unity's PlayerPrefs. An example of using PlayerPrefs can be found <a href="https://docs.unity3d.com/ScriptReference/PlayerPrefs.GetString.html" target="_blank">here</a>. The gameobject then initializes its own static instance and its audio sources. Finally, it attaches a method <Highlight>UpdateAmbient</Highlight> to be called whenever the scene changes via <Highlight>SceneManager.sceneLoaded</Highlight>. This is useful for if you wish to change the ambient music whenever the scene changes.
@@ -61,7 +61,7 @@ private void InitializeAudioSources()
     _effects = this.gameObject.AddComponent<AudioSource>();
 }
 ```
-</code>
+</code><br/>
 
 <br/>
 <Highlight>InitializeAudioSources()</Highlight>  attaches two (2) new audiosources to the gameobject for each of the audio types. Having multiple audiosources allows for multiple audio clips to be played simultaneously. This facilitates the majority of scenarios where ambient music is playing and an effect sound is to be played on top of it. **_ambient** and **_effects** are two (2) private global variables. The code snippet below shows an example of what playing ambient and effect sounds look like.
@@ -95,7 +95,7 @@ public void PlayAmbient(SoundLocation sl)
  
   }
 ```
-</code>
+</code><br/>
 
 <br/>
 **SoundLocation** will be described later on but it essentially produces a path to the audioclip to be played.
@@ -107,7 +107,7 @@ You’ve now essentially got a gameobject that can be accessed across different 
 	
 SoundManager.Instance.PlayBossMusic();
 ```
-</code>
+</code><br/>
 
 ## Selecting AudioClips via Unity Editor
 
@@ -130,7 +130,7 @@ public enum SoundLocation
     WeapE1, WeapEMine, WeapEBoss1,
 }
 ```
-</code>
+</code><br/>
 
 Where each of those enum represents the name of an audioclip in the resources folder. To translate into a path, you'd use a method such as the one below.
 
@@ -141,7 +141,7 @@ public string GetSoundLoc(SoundLocation sl)
     return "Sounds/" + sl.ToString();
 }
 ```
-</code>
+</code><br/>
 
 This approach allows you to easily select clips from the editor. You can even split up ambient and effect sounds into separate enums to make selections easier.
 
