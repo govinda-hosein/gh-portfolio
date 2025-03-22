@@ -1,16 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --secondary: #aaa6c3;
   --background: #f2f2f2;
   --highlight: #915eff;
   --text: #000000;
-  --accent: #2337ff;
-  --accent-dark: #000d8a;
   --gray: 96, 115, 159;
-  --gray-light: 229, 233, 240;
   --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #fff;
   --box-shadow: 0 2px 6px rgba(var(--gray), 25%),
     0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
 }
@@ -19,7 +14,6 @@
   --color-highlight: #915eff;
   --color-background: #f2f2f2;
   --color-text: #000000;
-  --color-secondary: #aaa6c3;
 }
 
 @font-face {
@@ -150,14 +144,13 @@ pre > code {
   all: unset;
 }
 blockquote {
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--highlight);
   padding: 0 0 0 20px;
   margin: 0px;
   font-size: 1.333em;
 }
 hr {
   border: none;
-  border-top: 1px solid rgb(var(--gray-light));
 }
 @media (max-width: 720px) {
   body {
