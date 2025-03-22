@@ -2,9 +2,9 @@
 
 :root {
   --secondary: #aaa6c3;
-  --background: #050816;
+  --background: #f2f2f2;
   --highlight: #915eff;
-  --text: #ffffff;
+  --text: #000000;
   --accent: #2337ff;
   --accent-dark: #000d8a;
   --gray: 96, 115, 159;
@@ -17,8 +17,8 @@
 
 @theme {
   --color-highlight: #915eff;
-  --color-background: #050816;
-  --color-text: #ffffff;
+  --color-background: #f2f2f2;
+  --color-text: #000000;
   --color-secondary: #aaa6c3;
 }
 
