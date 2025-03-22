@@ -23,28 +23,28 @@
 }
 
 @font-face {
-  font-family: "Atkinson";
-  src: url("/fonts/atkinson-regular.woff") format("woff");
+  font-family: "PatrickHand";
+  src: url("/fonts/patrickhand-regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Atkinson";
+  font-family: "Atkinson-Bold";
   src: url("/fonts/atkinson-bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 body {
-  font-family: "Atkinson", sans-serif;
+  font-family: "PatrickHand", sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
   background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 1.7;
   @apply text-text bg-background;
 }
@@ -59,6 +59,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: "Atkinson-Bold", sans-serif;
   margin: 0 0 0.5rem 0;
   color: rgb(var(--black));
   line-height: 1.2;
