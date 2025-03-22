@@ -20,7 +20,7 @@ First off, we'll set up a fresh laravel project that provides an API our mobile 
 laravel new project-name
 ```
 </code>
-
+<br/>
 ### Install Laravel Sanctum
 
 Afterward, connect up a test database and populate the .env file. Next, we'll install Laravel Sanctum. According to the docs, sanctum provides featherweight authentication systems for SPAs, mobile applications and simple based token APIs. Sanctum will be a lot easier to set up than Laravel Passport. You can read more on this library on the official docs. Install via the command.
@@ -30,7 +30,7 @@ Afterward, connect up a test database and populate the .env file. Next, we'll in
 composer require laravel/sanctum
 ```
 </code>
-
+<br/>
 Next up, we'll publish the sanctum configuration and migration files using the command.
 
 <code>
@@ -38,8 +38,8 @@ Next up, we'll publish the sanctum configuration and migration files using the c
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 ```
 </code>
-
-Don’t migrate as yet, there are some adjustments we need to make later on. In the User Model, add <Highlight>HasApiTokens</Highlight> traits
+<br/>
+Don't migrate as yet, there are some adjustments we need to make later on. In the User Model, add <Highlight>HasApiTokens</Highlight> traits
 
 <code>
 ```php 
@@ -51,6 +51,7 @@ class User extends Authenticatable
 }
 ```
 </code>
+<br/>
 
 ### Install and configure Socialite
 
@@ -61,6 +62,7 @@ Well use Socialite to authenticate with OAuth providers that our flutter app wil
 composer require laravel/socialite
 ```
 </code>
+<br/>
 
 Add the array for the OAuth providers in the config/services.php file. This tutorial only uses google provider.
 
@@ -73,6 +75,7 @@ Add the array for the OAuth providers in the config/services.php file. This tuto
 ],
 ```
 </code>
+<br/>
 
 You can set up credentials via the link <a href="https://console.developers.google.com/apis/dashboard">https://console.developers.google.com/apis/dashboard</a>. Once obtained, add the <Highlight>GOOGLE_CLIENT_ID</Highlight>, <Highlight>GOOGLE_CLIENT_SECRET</Highlight> and <Highlight>GOOGLE_REDIRECT_URI</Highlight> keys to your env file. Make sure to note the Redirect URI that you'll be using.
 
@@ -85,6 +88,7 @@ Simply make the password field <Highlight>nullable</Highlight> in the <Highlight
 $table->string('password')->nullable();
 ```
 </code>
+<br/>
 
 Once done, run the migrations
 
@@ -93,6 +97,7 @@ Once done, run the migrations
 php artisan migrate
 ```
 </code>
+<br/>
 
 Create an API controller via the command
 
@@ -101,6 +106,7 @@ Create an API controller via the command
 php artisan make:controller APIController
 ```
 </code>
+<br/>
 
 Next, add functions <Highlight>requestToken</Highlight> and <Highlight>requestTokenGoogle</Highlight> to this controller.
 
@@ -170,6 +176,7 @@ class APIController extends Controller
 }
 ```
 </code>
+<br/>
 
 When done, add the routes and this method to your <Highlight>routes/api.php</Highlight> file.
 
@@ -179,6 +186,7 @@ Route::post('requestToken', [APIController::class, 'requestToken']);
 Route::post('requestTokenGoogle', [APIController::class, 'requestTokenGoogle']);
 ```
 </code>
+<br/>
 
 That's our base setup for the web api. Our flutter app will perform a google signin, and on a successful signin, pass an access token to our web api. The web api then either gets or creates the user to the db, getting their google profile information via Socialite's userFromToken method. The api then returns a sanctum generated token that the mobile app can then use to perform request via authorization headers.
 
@@ -203,6 +211,7 @@ dependencies:
   flutter_secure_storage: ^3.3.5
 ```
 </code>
+<br/>
 
 Once done, also make sure to update your <Highlight>minSdkVersion</Highlight> to 23 for <Highlight>firebase_auth</Highlight> to work. The firebase_auth package requires a bit of setup before running the app so let's address that first.
 
@@ -229,6 +238,7 @@ lib
 	main.dart
 ```
 </code>
+<br/>
 
 We'll start by creating a <Highlight>utils/local_storage.dart</Highlight> to store access tokens. You can also use this file later on to save http responses.
 
@@ -268,6 +278,7 @@ class LocalStorage{
 }
 ```
 </code>
+<br/>
 
 This Local Storage helper is pretty simple and will be the entry point for reading/writing anything securely. Note that at the time of writing, the <Highlight>flutter_secure_storage</Highlight> package does not work on web apps. The <Highlight>LSKey</Highlight> class helps to keep usage a bit stricter. You can modify this file later on to use a combination of <Highlight>flutter_secure_storage</Highlight> and <Highlight>shared_preferences</Highlight>. Next, let's build a <Highlight>HttpClient</Highlight> class to perform our API requests. Store this in <Highlight>utils/http_client.dart</Highlight>.
 
@@ -334,6 +345,7 @@ class HttpClient {
 }
 ```
 </code>
+<br/>
 
 The <Highlight>API_URL</Highlight> property is web api's address that we can add paths to. The <Highlight>_authHeaders</Highlight> property is where you'll store the sanctum token once retrieved make authorized API calls later on. Once this class is imported, we can make request via the static method <Highlight>HttpClient.request(args)</Highlight> which is convenient. Now that we have both <Highlight>LocalStorage</Highlight> and <Highlight>HttpClient</Highlight> set up, we can create a login widget. Create the file <Highlight>lib/pages/auth/login.dart</Highlight> and paste in the contents.
 
@@ -463,6 +475,7 @@ class _LoginState extends State<Login>{
 }
 ```
 </code>
+<br/>
 
 The UI itself is as simple as it gets, a raised button that when clicked, will ask the user to sign in with their google account. The two main functions in this program are login and <Highlight>loginWithGoogle</Highlight>, both of which have routes created in our web api. Once either of them are called, the result is a sanctum token that you then save and use in <Highlight>_authHeaders</Highlight> to access the API. The final step is the <Highlight>main.dart</Highlight> file.
 
@@ -495,6 +508,7 @@ class MyApp extends StatelessWidget {
 }
 ```
 </code>
+<br/>
 
 And that's it! Run your web server via the command:
 
@@ -503,6 +517,7 @@ And that's it! Run your web server via the command:
 php artisan serve --host=0.0.0.0
 ```
 </code>
+<br/>
 
 This command runs your web app while making it accessible to other computers on your network. This is necessary for the mobile app to reach it. When you run the flutter app, click the login button and you should see the google login prompt. Once authorized, the app will communicate with the web server and return you the user information and the sanctum token. You'd then save that token to make future authorized requests.
 
@@ -531,5 +546,6 @@ plugins.each { name, path -&gt;
 }
 ```
 </code>
+<br/>
 
 Source: <a href="https://stackoverflow.com/questions/61732409/plugin-project-firebase-core-web-not-found">Plugin project :firebase_core_web not found</a> 

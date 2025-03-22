@@ -51,7 +51,7 @@ body {
 main {
   max-width: 1200px;
   margin: auto;
-  padding: 3em 6em;
+  padding: 1em 6em;
 }
 h1,
 h2,
@@ -65,20 +65,21 @@ h6 {
   line-height: 1.2;
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 2.1216em;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 1.9528em;
 }
 h3 {
-  font-size: 1.953em;
+  font-size: 1.5624em;
 }
 h4 {
-  font-size: 1.563em;
+  font-size: 1.2504em;
 }
 h5 {
-  font-size: 1.25em;
+  font-size: 1em;
 }
+
 strong,
 b {
   font-weight: 700;
@@ -126,6 +127,7 @@ img {
 code {
   counter-reset: step;
   counter-increment: step 0;
+
 }
 
 code .line::before {
@@ -189,12 +191,13 @@ hr {
 }
 
 .hero-image {
-  width: 100%;
+  width: 60%;
+  margin: auto;
 }
 
 .hero-image img {
   display: block;
-  margin: 0 auto;
+  margin: 1em auto;
   border-radius: 12px;
   box-shadow: var(--box-shadow);
 }
