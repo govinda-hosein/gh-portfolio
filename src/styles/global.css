@@ -74,6 +74,10 @@ h5 {
   font-size: 1em;
 }
 
+footer {
+  @apply flex flex-col items-center justify-center gap-2;
+}
+
 strong,
 b {
   font-weight: 700;
