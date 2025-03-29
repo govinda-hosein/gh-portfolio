@@ -43,7 +43,7 @@ body {
   @apply text-text bg-background;
 }
 main {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: auto;
   padding: 1em 6em;
 }
