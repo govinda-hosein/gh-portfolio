@@ -46,7 +46,12 @@ import ServiceCard from "@components/ServiceCard";
       <div class="mt-20 px-10 flex flex-wrap gap-10">
         {
           SERVICES.map((link, index) => (
-            <ServiceCard index={index} title={link.title} icon={link.icon} />
+            <ServiceCard
+              client:load
+              index={index}
+              title={link.title}
+              icon={link.icon}
+            />
           ))
         }
       </div>

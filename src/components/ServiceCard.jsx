@@ -7,7 +7,16 @@ function ServiceCard({ index, title, icon }) {
   return (
     <div className="w-[250px]">
       <motion.div
-        variants={fadeIn("right", "spring", 0.5 * index, 0.75)}
+        initial={{ x: -10, opacity: 0 }}
+        whileInView={{
+          x: 0,
+          opacity: 1,
+          transition: {
+            type: "spring",
+            delay: 0.1 * index,
+          },
+        }}
+        viewport={{ once: true, amount: 1 }}
         className="w-full green-pink-gradient p-1 rounded-[20px] shadow-card"
       >
         <div
