@@ -3,9 +3,9 @@ import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import TitleSubtitle from "@components/TitleSubtitle.astro";
-import { SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { EXPERIENCES, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import ServiceCard from "@components/ServiceCard";
-import Card1 from "@components/Test";
+import Timeline from "@components/Timeline";
 ---
 
 <!doctype html>
@@ -16,7 +16,6 @@ import Card1 from "@components/Test";
   <body>
     <Header />
     <main>
-      <Card1 client:only />
       <h2>
         <strong
           >Hi, Welcome to my <span class="text-highlight">Portfolio!</span
@@ -57,6 +56,7 @@ import Card1 from "@components/Test";
           ))
         }
       </div>
+      <Timeline client:only="react" items={EXPERIENCES} />
     </main>
     <Footer />
   </body>
