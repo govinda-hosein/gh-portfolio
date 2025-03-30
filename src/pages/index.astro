@@ -2,6 +2,7 @@
 import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
+import TitleSubtitle from "@components/TitleSubtitle.astro";
 import { SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import ServiceCard from "@components/ServiceCard";
 ---
@@ -25,10 +26,9 @@ import ServiceCard from "@components/ServiceCard";
         This is a showcase of my work experience and software products developed
         over the years.
       </p>
-      <h6 class="pt-12">INTRODUCTION</h6>
-      <h3>
-        <strong>About <span class="text-primary-highlight">Me.</span></strong>
-      </h3>
+
+      <TitleSubtitle title="About Me." subtitle="Introduction" />
+
       <p>
         I am a passionate and highly skilled software developer with a deep love
         for crafting innovative solutions. With a strong foundation in
