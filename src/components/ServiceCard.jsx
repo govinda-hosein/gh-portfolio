@@ -5,7 +5,7 @@ import { fadeIn } from "src/motion";
 
 function ServiceCard({ index, title, icon }) {
   return (
-    <div className="w-[250px]">
+    <div className="w-[200px]">
       <motion.div
         initial={{ x: -10, opacity: 0 }}
         whileInView={{
@@ -21,12 +21,12 @@ function ServiceCard({ index, title, icon }) {
       >
         <div
           options={{ max: 45, scale: 1, speed: 450 }}
-          className="bg-background rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col"
+          className="bg-background rounded-[20px] py-5 px-12 min-h-[220px] flex justify-evenly items-center flex-col"
         >
           <img src={icon} alt={title} className="w-16 h-16 object-contain" />
-          <h4 className="text-white text-[20px] text-center font-bold">
+          <h5 className="text-white text-[20px] text-center font-bold">
             {title}
-          </h4>
+          </h5>
         </div>
       </motion.div>
     </div>
