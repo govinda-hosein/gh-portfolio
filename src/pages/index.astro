@@ -5,6 +5,7 @@ import Header from "@components/Header.astro";
 import TitleSubtitle from "@components/TitleSubtitle.astro";
 import { SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import ServiceCard from "@components/ServiceCard";
+import Card1 from "@components/Test";
 ---
 
 <!doctype html>
@@ -15,6 +16,7 @@ import ServiceCard from "@components/ServiceCard";
   <body>
     <Header />
     <main>
+      <Card1 client:only />
       <h2>
         <strong
           >Hi, Welcome to my <span class="text-highlight">Portfolio!</span
