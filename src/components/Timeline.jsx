@@ -9,10 +9,10 @@ const VerticalTimelineElement = pkg.VerticalTimelineElement;
 
 const TimelineCard = ({ timelineItem }) => (
   <VerticalTimelineElement
-    contentStyle={{ background: "#1d1836", color: "#fff" }}
-    contentArrowStyle={{ borderRight: "7px solid #232631" }}
+    contentStyle={{ border: "4px solid #915eff" }}
+    contentArrowStyle={{ borderRight: "12px solid #915eff" }}
     date={timelineItem.date}
-    iconStyle={{ background: timelineItem.iconBg }}
+    iconStyle={{ background: timelineItem.iconBg, border: "1px solid #915eff" }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
         <img
@@ -23,11 +23,8 @@ const TimelineCard = ({ timelineItem }) => (
     }
   >
     <div>
-      <h3 className="text-white text-[24px] font-bond">{timelineItem.title}</h3>
-      <p
-        className="text-secondary text-[16px] font-semibold"
-        style={{ margin: 0 }}
-      >
+      <h4 className="!text-highlight ">{timelineItem.title}</h4>
+      <p className="!text-xl !font-semibold" style={{ margin: 0 }}>
         {timelineItem.company_name}
       </p>
     </div>
@@ -36,7 +33,7 @@ const TimelineCard = ({ timelineItem }) => (
       {timelineItem.points.map((point, index) => (
         <li
           key={`experience-point-${index}`}
-          className="text-white-100 text-[14px] pl-1 tracking-wider"
+          className="text-white-100 text-[18px] pl-1 tracking-wider"
         >
           {point}
         </li>
@@ -47,7 +44,7 @@ const TimelineCard = ({ timelineItem }) => (
 
 const Timeline = ({ items }) => {
   return (
-    <VerticalTimeline lineColor="#1d1836">
+    <VerticalTimeline lineColor="#915eff">
       {items.map((item, index) => (
         <TimelineCard key={index} timelineItem={item} />
       ))}

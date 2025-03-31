@@ -93,7 +93,7 @@ ol {
   @apply list-decimal pl-12;
 }
 ul {
-  @apply pl-12 list-disc list-inside my-6;
+  @apply pl-4 list-disc list-inside my-6;
 }
 
 p {
