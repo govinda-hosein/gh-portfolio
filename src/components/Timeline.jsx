@@ -32,7 +32,7 @@ const TimelineCard = ({ timelineItem }) => (
       </p>
     </div>
 
-    <ul className="mt-5 list-disc ml-5 space-y-2">
+    <ul className="mt-5 list-disc space-y-2">
       {timelineItem.points.map((point, index) => (
         <li
           key={`experience-point-${index}`}
@@ -47,7 +47,7 @@ const TimelineCard = ({ timelineItem }) => (
 
 const Timeline = ({ items }) => {
   return (
-    <VerticalTimeline>
+    <VerticalTimeline lineColor="#1d1836">
       {items.map((item, index) => (
         <TimelineCard key={index} timelineItem={item} />
       ))}

@@ -8,7 +8,7 @@ export const EXPERIENCES = [
   {
     title: "ICT Technologist",
     company_name: "Caribbean Industrial Research Institute",
-    icon: "/icons/web.png",
+    icon: "/icons/cariri.jpg",
     iconBg: "#FFFFFF",
     date: "September 2014 - September 2017",
     points: [
@@ -23,7 +23,7 @@ export const EXPERIENCES = [
   {
     title: "Associate Professional",
     company_name: "Department of Electrical and Computer Engineering, UWI",
-    icon: "/icons/web.png",
+    icon: "/icons/uwi.jpg",
     iconBg: "#FFFFFF",
     date: "February 2019 - February 2020",
     points: [
@@ -36,7 +36,7 @@ export const EXPERIENCES = [
   {
     title: "Electrical and Computer Engineer",
     company_name: "FaSoVe",
-    icon: "/icons/web.png",
+    icon: "/icons/fasove.png",
     iconBg: "#FFFFFF",
     date: "February 2020 - October 2020",
     points: [
@@ -48,7 +48,7 @@ export const EXPERIENCES = [
   {
     title: "Software Development and Design Engineer",
     company_name: "Digicel",
-    icon: "/icons/web.png",
+    icon: "/icons/digicel.png",
     iconBg: "#FFFFFF",
     date: "November 2020 - Present",
     points: [
