@@ -3,9 +3,16 @@ import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import TitleSubtitle from "@components/TitleSubtitle.astro";
-import { EXPERIENCES, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import {
+  EXPERIENCES,
+  FRAMEWORKS,
+  SERVICES,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+} from "../consts";
 import ServiceCard from "@components/ServiceCard";
 import Timeline from "@components/Timeline";
+import TechnologyIcon from "@components/TechnologyIcon";
 ---
 
 <!doctype html>
@@ -65,6 +72,13 @@ import Timeline from "@components/Timeline";
 
       <TitleSubtitle title="Frameworks." subtitle="TECHNOLOGIES" />
       <p>These are the frameworks that I am currently competent in.</p>
+      <div class="my-10 flex flex-wrap md:gap-15">
+        {
+          FRAMEWORKS.map((framework, index) => (
+            <TechnologyIcon client:load index={index} technology={framework} />
+          ))
+        }
+      </div>
     </main>
     <Footer />
   </body>
