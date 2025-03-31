@@ -1,9 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { springIn } from "../motion";
 
 function TechnologyIcon({ technology, index }) {
   return (
-    <motion.div className="flex flex-col items-center gap-1">
+    <motion.div
+      variants={springIn(0.1 * index)}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 1 }}
+      className="flex flex-col items-center gap-1"
+    >
       <img
         src={technology.icon}
         title={technology.name}

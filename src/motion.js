@@ -19,7 +19,7 @@ export const textVariant = (delay) => {
 export const springIn = (delay) => {
   return {
     hidden: {
-      y: -50,
+      y: -20,
       opacity: 0,
     },
     show: {
