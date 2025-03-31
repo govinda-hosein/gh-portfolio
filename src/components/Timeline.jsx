@@ -7,25 +7,52 @@ import pkg from "react-vertical-timeline-component";
 const VerticalTimeline = pkg.VerticalTimeline;
 const VerticalTimelineElement = pkg.VerticalTimelineElement;
 
-function Timeline({ items }) {
+const TimelineCard = ({ timelineItem }) => (
+  <VerticalTimelineElement
+    contentStyle={{ background: "#1d1836", color: "#fff" }}
+    contentArrowStyle={{ borderRight: "7px solid #232631" }}
+    date={timelineItem.date}
+    iconStyle={{ background: timelineItem.iconBg }}
+    icon={
+      <div className="flex justify-center items-center w-full h-full">
+        <img
+          src={timelineItem.icon}
+          className="w-[60%] h-[60%] object-contain"
+        />
+      </div>
+    }
+  >
+    <div>
+      <h3 className="text-white text-[24px] font-bond">{timelineItem.title}</h3>
+      <p
+        className="text-secondary text-[16px] font-semibold"
+        style={{ margin: 0 }}
+      >
+        {timelineItem.company_name}
+      </p>
+    </div>
+
+    <ul className="mt-5 list-disc ml-5 space-y-2">
+      {timelineItem.points.map((point, index) => (
+        <li
+          key={`experience-point-${index}`}
+          className="text-white-100 text-[14px] pl-1 tracking-wider"
+        >
+          {point}
+        </li>
+      ))}
+    </ul>
+  </VerticalTimelineElement>
+);
+
+const Timeline = ({ items }) => {
   return (
     <VerticalTimeline>
-      <VerticalTimelineElement
-        className="vertical-timeline-element--work"
-        contentStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-        contentArrowStyle={{ borderRight: "7px solid  rgb(33, 150, 243)" }}
-        date="2011 - present"
-        iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-      >
-        <h3 className="vertical-timeline-element-title">Creative Director</h3>
-        <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
-        <p>
-          Creative Direction, User Experience, Visual Design, Project
-          Management, Team Leading
-        </p>
-      </VerticalTimelineElement>
+      {items.map((item, index) => (
+        <TimelineCard key={index} timelineItem={item} />
+      ))}
     </VerticalTimeline>
   );
-}
+};
 
 export default Timeline;

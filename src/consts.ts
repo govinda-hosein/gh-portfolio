@@ -4,7 +4,7 @@
 export const SITE_TITLE = "Govinda Hosein";
 export const SITE_DESCRIPTION = "Welcome to my site!";
 
-const EXPERIENCES = [
+export const EXPERIENCES = [
   {
     title: "ICT Technologist",
     company_name: "Caribbean Industrial Research Institute",
