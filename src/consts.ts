@@ -54,9 +54,8 @@ export const EXPERIENCES = [
     points: [
       "A core developer of the MyDigicel App. Built in flutter and published to both google play and ios stores. Has more than 10 million downloads",
       "Designed, developed and deployed DigiAssist, a platform for both customers and internal agents to troubleshoot modem issues with an automated flow. UI/UX designs were created in figma",
-      "Implemented responsive design and ensured cross-browser compatibility",
-      "Automated manual tasks across the entire company using primarily python",
-      "Delivered",
+
+      "Automated manual tasks across the entire company (using primarily python)",
       "Effectively deployed numerous web applications to meet business needs",
     ],
   },
