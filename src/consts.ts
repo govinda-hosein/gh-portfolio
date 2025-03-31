@@ -61,6 +61,33 @@ export const EXPERIENCES = [
   },
 ];
 
+export const FRAMEWORKS = [
+  {
+    name: "Tailwind CSS",
+    icon: "/icons/tailwind.png",
+  },
+  {
+    name: "Laravel",
+    icon: "/icons/laravel.png",
+  },
+  {
+    name: "Django",
+    icon: "/icons/django.png",
+  },
+  {
+    name: "Flask",
+    icon: "/icons/flask.png",
+  },
+  {
+    name: "Flutter",
+    icon: "/icons/flutter.png",
+  },
+  {
+    name: "unity",
+    icon: "/icons/unity.png",
+  },
+];
+
 export const SERVICES = [
     {
       title: "Full Stack Web Developer",
