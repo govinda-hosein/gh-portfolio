@@ -7,11 +7,13 @@ import {
   EXPERIENCES,
   FRAMEWORKS,
   LANGUAGES,
+  PROJECTS,
   SERVICES,
   SITE_DESCRIPTION,
   SITE_TITLE,
   TOOLBOX,
 } from "../consts";
+import ProjectCard from "@components/ProjectCard";
 import ServiceCard from "@components/ServiceCard";
 import Timeline from "@components/Timeline";
 import TechnologyIcon from "@components/TechnologyIcon";
@@ -110,6 +112,10 @@ import TechnologyIcon from "@components/TechnologyIcon";
             <TechnologyIcon client:load index={index} technology={framework} />
           ))
         }
+      </div>
+
+      <div class="mt-20 flex flex-wrap gap-7">
+        {PROJECTS.map((project, index) => <ProjectCard {...project} />)}
       </div>
     </main>
     <Footer />

@@ -123,49 +123,123 @@ export const LANGUAGES = [
   },
 ];
 
-export const SERVICES = [
-    {
-      title: "Full Stack Web Developer",
-      icon: "/icons/web.png"
-    },
-    {
-      title: "UI/UX Designer (Figma)",
-      icon: "/icons/web.png"
-    },
-    {
-      title: "Content Creator",
-      icon: "/icons/creator.png",
-    },
-    {
-      title: "Game Developer (Unity)",
-      icon: "/icons/web.png",
-    },
-    {
-      title: "Mobile App Developer (Flutter)",
-      icon: "/icons/mobile.png",
-    },
-    {
-      title: "Automation Engineer",
-      icon: "/icons/backend.png",
-    },
-  ];
+export const PROJECTS = [
+  {
+    name: "All Fours Mobile",
+    description:
+      "Hang ah Jack! Kick ah Six! All Fours Mobile is completely free to play. Release provides players a strong AI to play with and against during spare time in this tradition four (4) player game.",
+    tags: ["Unity", "MobileGame"],
+    image: "/icons/allfoursmobile.webp",
+    links: [
+      {
+        icon: "/icons/applestore.png",
+        href: "https://apps.apple.com/gb/app/all-fours-mobile/id1573349538",
+        title: "Apple Store Link",
+      },
+    ],
+  },
+  {
+    name: "DigiAssist",
+    description:
+      "DigiAssist is the ultimate solution hub for all your Digicel product and service issues. With a comprehensive list of automated tools, you can troubleshoot any problem from the comfort of your own home.",
+    tags: ["Django", "React", "Tailwind"],
+    image: "/icons/digiassist.webp",
+    links: [
+      {
+        icon: "/icons/link.png",
+        href: "https://service.digiceltt.com/digiassist/",
+        title: "Link",
+      },
+    ],
+  },
+  {
+    name: "MyDigicel App",
+    description:
+      "Manage your account and complete all your Digicel transactions. Features include activate plans and subscriptions, pay your Digicel Bills using your credit/debit card, Top-up your account, check your balance and data usage, send credit to family & friends",
+    tags: ["Flutter", "RestAPI"],
+    image: "/icons/mydigicel.webp",
+    links: [
+      {
+        icon: "/icons/applestore.png",
+        href: "https://apps.apple.com/gb/app/mydigicel/id1039460951",
+        title: "Apple Store Link",
+      },
+      {
+        icon: "/icons/googleplay.png",
+        href: "https://play.google.com/store/apps/details?id=com.digicel.selfcare.mobile",
+        title: "Google Play Link",
+      },
+    ],
+  },
 
-export  const TOOLBOX = [
-    
-    {
-      name: "Node JS",
-      icon: "/icons/nodejs.png",
-    },
-    {
-      name: "Git",
-      icon: "/icons/git.png",
-    },
-    {
-      name: "Figma",
-      icon: "/icons/figma.png",
-    },
-    {
-      name: "Docker",
-      icon: "/icons/docker.png",
-    },
-  ];
+  {
+    name: "FarmVue",
+    description:
+      "FarmVue is a mobile app built for farmers to track their produce",
+    tags: ["Flutter", "RestAPI"],
+    image: "/icons/farmvuemobile.webp",
+    links: [
+      {
+        icon: "/icons/applestore.png",
+        href: "https://apps.apple.com/us/app/good-agricultural-practices/id1569043989",
+        title: "Apple Store Link",
+      },
+      {
+        icon: "/icons/googleplay.png",
+        href: "https://play.google.com/store/apps/details?id=com.raziel619.gaptt_mobile",
+        title: "Google Play Link",
+      },
+      {
+        icon: "/icons/link.png",
+        href: "https://farmvue.app/",
+        title: "Link",
+      },
+    ],
+  },
+];
+
+export const SERVICES = [
+  {
+    title: "Full Stack Web Developer",
+    icon: "/icons/web.png",
+  },
+  {
+    title: "UI/UX Designer (Figma)",
+    icon: "/icons/web.png",
+  },
+  {
+    title: "Content Creator",
+    icon: "/icons/creator.png",
+  },
+  {
+    title: "Game Developer (Unity)",
+    icon: "/icons/web.png",
+  },
+  {
+    title: "Mobile App Developer (Flutter)",
+    icon: "/icons/mobile.png",
+  },
+  {
+    title: "Automation Engineer",
+    icon: "/icons/backend.png",
+  },
+];
+
+export const TOOLBOX = [
+  {
+    name: "Node JS",
+    icon: "/icons/nodejs.png",
+  },
+  {
+    name: "Git",
+    icon: "/icons/git.png",
+  },
+  {
+    name: "Figma",
+    icon: "/icons/figma.png",
+  },
+  {
+    name: "Docker",
+    icon: "/icons/docker.png",
+  },
+];
