@@ -6,6 +6,7 @@ import TitleSubtitle from "@components/TitleSubtitle.astro";
 import {
   EXPERIENCES,
   FRAMEWORKS,
+  LANGUAGES,
   SERVICES,
   SITE_DESCRIPTION,
   SITE_TITLE,
@@ -89,6 +90,21 @@ import TechnologyIcon from "@components/TechnologyIcon";
       <div class="my-10 flex flex-wrap md:gap-15">
         {
           TOOLBOX.map((framework, index) => (
+            <TechnologyIcon client:load index={index} technology={framework} />
+          ))
+        }
+      </div>
+
+      <!-- Languages -->
+      <TitleSubtitle title="Languages." subtitle="TECHNOLOGIES" />
+      <p>
+        These are the programming languages that I can write a <span
+          class="highlight">for</span
+        > loop with.
+      </p>
+      <div class="my-10 flex flex-wrap md:gap-15">
+        {
+          LANGUAGES.map((framework, index) => (
             <TechnologyIcon client:load index={index} technology={framework} />
           ))
         }

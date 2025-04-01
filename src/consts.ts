@@ -92,6 +92,37 @@ export const FRAMEWORKS = [
   },
 ];
 
+export const LANGUAGES = [
+  {
+    name: "HTML 5",
+    icon: "/icons/html.png",
+  },
+  {
+    name: "PHP",
+    icon: "/icons/php.png",
+  },
+  {
+    name: "C#",
+    icon: "/icons/csharp.png",
+  },
+  {
+    name: "Python",
+    icon: "/icons/python.jpg",
+  },
+  {
+    name: "Java",
+    icon: "/icons/java.png",
+  },
+  {
+    name: "Dart",
+    icon: "/icons/dart.png",
+  },
+  {
+    name: "JavaScript",
+    icon: "/icons/javascript.png",
+  },
+];
+
 export const SERVICES = [
     {
       title: "Full Stack Web Developer",
