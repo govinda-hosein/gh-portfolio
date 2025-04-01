@@ -171,13 +171,12 @@ export const PROJECTS = [
       },
     ],
   },
-
   {
     name: "FarmVue",
     description:
       "FarmVue is a mobile app built for farmers to track their produce",
     tags: ["Flutter", "RestAPI"],
-    image: "/icons/farmvuemobile.webp",
+    image: "/icons/farmvue.jpeg",
     links: [
       {
         icon: "/icons/applestore.png",
