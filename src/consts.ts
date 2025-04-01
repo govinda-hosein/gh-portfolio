@@ -67,6 +67,10 @@ export const FRAMEWORKS = [
     icon: "/icons/tailwind.png",
   },
   {
+    name: "React",
+    icon: "/icons/reactjs.png",
+  },
+  {
     name: "Laravel",
     icon: "/icons/laravel.png",
   },
@@ -83,7 +87,7 @@ export const FRAMEWORKS = [
     icon: "/icons/flutter.png",
   },
   {
-    name: "unity",
+    name: "Unity",
     icon: "/icons/unity.png",
   },
 ];
@@ -112,5 +116,25 @@ export const SERVICES = [
     {
       title: "Automation Engineer",
       icon: "/icons/backend.png",
+    },
+  ];
+
+export  const TOOLBOX = [
+    
+    {
+      name: "Node JS",
+      icon: "/icons/nodejs.png",
+    },
+    {
+      name: "Git",
+      icon: "/icons/git.png",
+    },
+    {
+      name: "Figma",
+      icon: "/icons/figma.png",
+    },
+    {
+      name: "Docker",
+      icon: "/icons/docker.png",
     },
   ];

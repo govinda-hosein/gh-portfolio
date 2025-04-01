@@ -9,6 +9,7 @@ import {
   SERVICES,
   SITE_DESCRIPTION,
   SITE_TITLE,
+  TOOLBOX,
 } from "../consts";
 import ServiceCard from "@components/ServiceCard";
 import Timeline from "@components/Timeline";
@@ -64,17 +65,30 @@ import TechnologyIcon from "@components/TechnologyIcon";
         }
       </div>
 
+      <!-- Work Experience -->
       <TitleSubtitle
         title="Work Experience."
         subtitle="WHAT I HAVE DONE SO FAR"
       />
       <Timeline client:only="react" items={EXPERIENCES} />
 
+      <!-- Frameworks -->
       <TitleSubtitle title="Frameworks." subtitle="TECHNOLOGIES" />
       <p>These are the frameworks that I am currently competent in.</p>
       <div class="my-10 flex flex-wrap md:gap-15">
         {
           FRAMEWORKS.map((framework, index) => (
+            <TechnologyIcon client:load index={index} technology={framework} />
+          ))
+        }
+      </div>
+
+      <!-- Toolbox -->
+      <TitleSubtitle title="Toolbox." subtitle="TECHNOLOGIES" />
+      <p>These are my go-to tools.</p>
+      <div class="my-10 flex flex-wrap md:gap-15">
+        {
+          TOOLBOX.map((framework, index) => (
             <TechnologyIcon client:load index={index} technology={framework} />
           ))
         }
