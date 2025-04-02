@@ -61,6 +61,27 @@ export const EXPERIENCES = [
   },
 ];
 
+export const EXTERNAL_LINKS = [
+  {
+    title: "Google Scholars",
+    subtitle: "(7 Publications)",
+    link: "https://scholar.google.com/citations?user=Lm_u-F0AAAAJ",
+    image: "/icons/googlescholar.webp",
+  },
+  {
+    title: "Github",
+    subtitle: "(>17 Public Repos)",
+    link: "https://github.com/govinda-hosein",
+    image: "/icons/github.svg",
+  },
+  {
+    title: "LinkedIn",
+    subtitle: "",
+    link: "https://tt.linkedin.com/in/govinda-hosein-94b8ab71",
+    image: "/icons/linkedin.webp",
+  },
+];
+
 export const FRAMEWORKS = [
   {
     name: "Tailwind CSS",

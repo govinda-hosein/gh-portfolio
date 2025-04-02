@@ -5,6 +5,7 @@ import Header from "@components/Header.astro";
 import TitleSubtitle from "@components/TitleSubtitle.astro";
 import {
   EXPERIENCES,
+  EXTERNAL_LINKS,
   FRAMEWORKS,
   LANGUAGES,
   PROJECTS,
@@ -13,6 +14,7 @@ import {
   SITE_TITLE,
   TOOLBOX,
 } from "../consts";
+import ExternalCard from "@components/ExternalCard";
 import ProjectCard from "@components/ProjectCard";
 import ServiceCard from "@components/ServiceCard";
 import Timeline from "@components/Timeline";
@@ -118,6 +120,17 @@ import TechnologyIcon from "@components/TechnologyIcon";
       <TitleSubtitle title="Projects." subtitle="MY WORK" />
       <div class="mt-10 flex flex-wrap gap-7">
         {PROJECTS.map((project, index) => <ProjectCard {...project} />)}
+      </div>
+
+      <!-- External Links -->
+      <div class="mt-10"></div>
+      <TitleSubtitle title="External Links." subtitle="MY OTHER WORKS" />
+      <div class="mt-10 flex flex-wrap gap-7">
+        {
+          EXTERNAL_LINKS.map((external, index) => (
+            <ExternalCard index={index} {...external} />
+          ))
+        }
       </div>
     </main>
     <Footer />

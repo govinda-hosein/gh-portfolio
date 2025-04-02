@@ -3,7 +3,7 @@
 :root {
   --background: #f2f2f2;
   --highlight: #915eff;
-  --tertiary: #f6e58d;
+  --tertiary: #ffffff;
   --text: #000000;
   --gray: 96, 115, 159;
   --gray-dark: 34, 41, 57;
@@ -14,7 +14,7 @@
 @theme {
   --color-highlight: #915eff;
   --color-background: #f2f2f2;
-  --color-tertiary: #55efc4;
+  --color-tertiary: #ffffff;
   --color-text: #000000;
 }
 
