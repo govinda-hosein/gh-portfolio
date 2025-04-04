@@ -9,7 +9,7 @@ const TagColors = [
 const ProjectCard = ({ name, description, image, tags, links }) => {
   return (
     <div className="p-1 h-fit bg-highlight rounded-2xl">
-      <div className="bg-white p-5 rounded-2xl sm:w-[440px] w-full">
+      <div className="bg-white p-5 rounded-2xl w-full">
         <div className="relative w-full h-[230px]">
           <img
             src={image}

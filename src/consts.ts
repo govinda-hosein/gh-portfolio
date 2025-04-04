@@ -189,21 +189,6 @@ export const PROJECTS = [
     ],
   },
   {
-    name: "Digicel - Update My Profile",
-    description:
-      "Web app enabling customers to complete Know-Your-Customer (KYC) verification for Digicel.",
-    tags: [],
-    image: "/img/projects/ump.png",
-    links: [
-      {
-        icon: "/icons/link.png",
-        href: "https://service.digiceltt.com/update-my-profile/",
-        title: "Link",
-      },
-    ],
-  },
-
-  {
     name: "FarmVue",
     description:
       "FarmVue is a mobile app built for farmers to track their produce",
@@ -223,6 +208,20 @@ export const PROJECTS = [
       {
         icon: "/icons/link.png",
         href: "https://farmvue.app/",
+        title: "Link",
+      },
+    ],
+  },
+  {
+    name: "Digicel - Update My Profile",
+    description:
+      "Web app enabling customers to complete Know-Your-Customer (KYC) verification for Digicel.",
+    tags: [],
+    image: "/img/projects/ump.png",
+    links: [
+      {
+        icon: "/icons/link.png",
+        href: "https://service.digiceltt.com/update-my-profile/",
         title: "Link",
       },
     ],
