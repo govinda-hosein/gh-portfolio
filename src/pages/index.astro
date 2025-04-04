@@ -122,6 +122,10 @@ const projectsCol2 = PROJECTS.slice(projectsMidIndex);
 
       <!-- Projects -->
       <TitleSubtitle title="Projects." subtitle="MY WORK" />
+      <p>
+        Here are some of my public projects—well, the ones I’m allowed to talk
+        about! 😏
+      </p>
       <div class="mt-10 flex flex-col md:flex-row gap-7">
         <div class="flex flex-col gap-7 flex-1">
           {projectsCol1.map((project) => <ProjectCard {...project} />)}
@@ -141,6 +145,15 @@ const projectsCol2 = PROJECTS.slice(projectsMidIndex);
           ))
         }
       </div>
+
+      <!-- Contact -->
+      <div class="mt-10"></div>
+      <TitleSubtitle title="Contact." subtitle="GET IN TOUCH" />
+      <p>
+        Email me at <a href="mailto:govinda.hosein@gmail.com"
+          >govinda.hosein@gmail.com</a
+        >
+      </p>
     </main>
     <Footer />
   </body>
