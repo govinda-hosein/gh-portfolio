@@ -12,7 +12,6 @@ export const EXPERIENCES = [
     iconBg: "#FFFFFF",
     date: "September 2014 - September 2017",
     points: [
-      "Team member of the Data Innovations Solutions Centre (DISC)",
       "Provided IT support to the Centre for Enterprise Development (CED)",
       "Delivered numerous programming workshops at the Microsoft Innovation Centre (MIC)",
       "Maintained all company websites",
