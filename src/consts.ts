@@ -155,25 +155,7 @@ export const PROJECTS = [
       },
     ],
   },
-  {
-    name: "MyDigicel App",
-    description:
-      "Manage your account and complete all your Digicel transactions. Features include activate plans and subscriptions, pay your Digicel Bills using your credit/debit card, Top-up your account, check your balance and data usage, send credit to family & friends",
-    tags: ["Flutter", "RestAPI"],
-    image: "/icons/mydigicel.webp",
-    links: [
-      {
-        icon: "/icons/applestore.png",
-        href: "https://apps.apple.com/gb/app/mydigicel/id1039460951",
-        title: "Apple Store Link",
-      },
-      {
-        icon: "/icons/googleplay.png",
-        href: "https://play.google.com/store/apps/details?id=com.digicel.selfcare.mobile",
-        title: "Google Play Link",
-      },
-    ],
-  },
+
   {
     name: "DigiAssist",
     description:
@@ -209,6 +191,25 @@ export const PROJECTS = [
         icon: "/icons/link.png",
         href: "https://farmvue.app/",
         title: "Link",
+      },
+    ],
+  },
+  {
+    name: "MyDigicel App",
+    description:
+      "Manage your account and complete all your Digicel transactions. Features include activate plans and subscriptions, pay your Digicel Bills using your credit/debit card, Top-up your account, check your balance and data usage, send credit to family & friends",
+    tags: ["Flutter", "RestAPI"],
+    image: "/icons/mydigicel.webp",
+    links: [
+      {
+        icon: "/icons/applestore.png",
+        href: "https://apps.apple.com/gb/app/mydigicel/id1039460951",
+        title: "Apple Store Link",
+      },
+      {
+        icon: "/icons/googleplay.png",
+        href: "https://play.google.com/store/apps/details?id=com.digicel.selfcare.mobile",
+        title: "Google Play Link",
       },
     ],
   },
