@@ -44,6 +44,12 @@ body {
   line-height: 1.7;
   @apply text-text bg-background;
 }
+
+html {
+  font-size: 18px;
+}
+
+
 main {
   margin: auto;
   padding: 2em 3em;
