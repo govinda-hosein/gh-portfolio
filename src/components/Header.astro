@@ -26,15 +26,17 @@ import SocialLinks from "./SocialLinks.astro";
     <!-- Navigation Links (desktop + mobile) -->
     <div
       id="menu"
-      class="w-full mt-4 md:mt-0 md:flex-1 md:flex md:items-center justify-between hidden"
+      class="w-full h-screen md:h-fit mt-4 md:mt-0 md:flex-1 md:flex md:items-center justify-between hidden"
     >
       <div></div>
-      <div class="internal-links flex flex-col md:flex-row md:gap-4">
+      <div
+        class="internal-links flex flex-col md:flex-row gap-2 md:gap-16 py-4"
+      >
         <HeaderLink href="/">Portfolio</HeaderLink>
         <HeaderLink href="/blog">Blog</HeaderLink>
       </div>
 
-      <div class="social-links mt-4 md:mt-0 md:ml-6">
+      <div class="social-links mt-16 md:mt-0 md:ml-6">
         <SocialLinks />
       </div>
     </div>
@@ -45,8 +47,8 @@ import SocialLinks from "./SocialLinks.astro";
   const toggleBtn = document.getElementById("menuToggle");
   const menu = document.getElementById("menu");
 
-  toggleBtn.addEventListener("click", () => {
-    menu.classList.toggle("hidden");
+  toggleBtn!.addEventListener("click", () => {
+    menu!.classList.toggle("hidden");
   });
 </script>
 
@@ -71,22 +73,17 @@ import SocialLinks from "./SocialLinks.astro";
     justify-content: space-between;
   }
   nav a {
-    padding: 1em 0.5em;
     color: var(--text);
-    border-bottom: 4px solid transparent;
     text-decoration: none;
+    border-bottom: 4px solid transparent;
   }
   nav a.active {
     text-decoration: none;
     border-bottom-color: var(--highlight);
+    @apply max-w-[100px];
   }
   .social-links,
   .social-links a {
     display: flex;
-  }
-  @media (max-width: 720px) {
-    .social-links {
-      display: none;
-    }
   }
 </style>
