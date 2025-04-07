@@ -12,6 +12,7 @@ const TimelineCard = ({ timelineItem }) => (
     contentStyle={{ border: "4px solid #915eff" }}
     contentArrowStyle={{ borderRight: "12px solid #915eff" }}
     date={timelineItem.date}
+    dateClassName="!text-xl "
     iconStyle={{ background: timelineItem.iconBg, border: "1px solid #915eff" }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
