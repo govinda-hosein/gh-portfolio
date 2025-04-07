@@ -16,9 +16,6 @@ const posts = (await getCollection("blog")).sort(
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <style>
-      main {
-        width: 960px;
-      }
       ul {
         display: flex;
         flex-wrap: wrap;
@@ -35,7 +32,9 @@ const posts = (await getCollection("blog")).sort(
         transition: 0.2s ease;
       }
       ul li:first-child {
-        width: 100%;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
         margin-bottom: 1rem;
         text-align: center;
       }
@@ -66,8 +65,11 @@ const posts = (await getCollection("blog")).sort(
         box-shadow: var(--box-shadow);
       }
       @media (max-width: 720px) {
+        ul li:first-child {
+          width: 100%;
+        }
         ul {
-          gap: 0.5em;
+          gap: 2em;
         }
         ul li {
           width: 100%;
