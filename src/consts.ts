@@ -234,7 +234,7 @@ export const SERVICES = [
     icon: "/icons/web.png",
   },
   {
-    title: "UI/UX Designer (Figma)",
+    title: "UI/UX Designer",
     icon: "/icons/web.png",
   },
   {
@@ -242,11 +242,11 @@ export const SERVICES = [
     icon: "/icons/creator.png",
   },
   {
-    title: "Game Developer (Unity)",
+    title: "Game Developer",
     icon: "/icons/web.png",
   },
   {
-    title: "Mobile App Developer (Flutter)",
+    title: "Mobile App Developer",
     icon: "/icons/mobile.png",
   },
   {

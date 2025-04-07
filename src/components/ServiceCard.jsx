@@ -21,12 +21,12 @@ function ServiceCard({ index, title, icon }) {
       >
         <div
           options={{ max: 45, scale: 1, speed: 450 }}
-          className="bg-background rounded-[20px] py-5 px-12 min-h-[220px] flex justify-evenly items-center flex-col"
+          className="bg-background rounded-[20px] py-5 px-12 min-h-[200px] flex justify-evenly items-center flex-col"
         >
-          <img src={icon} alt={title} className="w-16 h-16 object-contain" />
-          <h5 className="text-white text-[20px] text-center font-bold">
+          <img src={icon} alt={title} className="w-12 h-12 object-contain" />
+          <h6 className="text-white pt-2 text-[20px] text-center font-bold">
             {title}
-          </h5>
+          </h6>
         </div>
       </motion.div>
     </div>

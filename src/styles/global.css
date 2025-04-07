@@ -21,9 +21,6 @@
 @font-face {
   font-family: "PatrickHand";
   src: url("/fonts/patrickhand-regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
 }
 @font-face {
   font-family: "Atkinson-Bold";
@@ -44,6 +41,12 @@ body {
   line-height: 1.7;
   @apply text-text bg-background;
 }
+
+html {
+  font-size: 18px;
+}
+
+
 main {
   margin: auto;
   padding: 2em 3em;
