@@ -10,8 +10,8 @@ const { title, subtitle } = Astro.props;
 const [firstPart, lastWord] = splitString(title);
 ---
 
-<div class="mt-8 md:mt-16"></div>
-<h7 class="pt-10">{subtitle}</h7>
+<div class="mt-8 md:mt-12"></div>
+<h7 class="pt-10 text-blue-600">{subtitle}</h7>
 <h3>
   <strong>{firstPart} <span class="text-highlight">{lastWord}</span></strong>
 </h3>
