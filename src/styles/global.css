@@ -40,14 +40,14 @@ body {
   background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: 24px;
+  font-size: 1.5em;
   line-height: 1.7;
   @apply text-text bg-background;
 }
 main {
-  max-width: 1300px;
   margin: auto;
-  padding: 1em 6em;
+  padding: 2em 3em;
+  @apply md:max-w-[1300px];
 }
 h1,
 h2,
