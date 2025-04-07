@@ -4,23 +4,52 @@ import HeaderLink from "./HeaderLink.astro";
 import SocialLinks from "./SocialLinks.astro";
 ---
 
-<header>
-  <nav>
-    <span class="flex flex-row items-center gap-2">
-      <img src="/img/me.png" class="w-12" alt="" />
-      <h2 class="flex flex-row">
-        <a href="/">{SITE_TITLE}</a>
-      </h2>
+<header class="bg-[linear-gradient(var(--background))] px-4 py-2">
+  <nav class="flex items-center justify-between flex-wrap">
+    <!-- Logo + Site Title -->
+    <span class="flex items-center gap-2">
+      <img src="/img/me.png" class="w-10 h-10" alt="Site logo" />
+      <h6 class="!mt-3">
+        <a href="/" class="!no-underline !text-black">{SITE_TITLE}</a>
+      </h6>
     </span>
 
-    <div class="internal-links">
-      <HeaderLink href="/">Portfolio</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
-    </div>
+    <!-- Mobile Menu Toggle Button -->
+    <button
+      class="text-3xl md:hidden focus:outline-none"
+      id="menuToggle"
+      aria-label="Toggle menu"
+    >
+      ☰
+    </button>
 
-    <SocialLinks />
+    <!-- Navigation Links (desktop + mobile) -->
+    <div
+      id="menu"
+      class="w-full mt-4 md:mt-0 md:flex-1 md:flex md:items-center justify-between hidden"
+    >
+      <div></div>
+      <div class="internal-links flex flex-col md:flex-row md:gap-4">
+        <HeaderLink href="/">Portfolio</HeaderLink>
+        <HeaderLink href="/blog">Blog</HeaderLink>
+      </div>
+
+      <div class="social-links mt-4 md:mt-0 md:ml-6">
+        <SocialLinks />
+      </div>
+    </div>
   </nav>
 </header>
+
+<script>
+  const toggleBtn = document.getElementById("menuToggle");
+  const menu = document.getElementById("menu");
+
+  toggleBtn.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+</script>
+
 <style>
   header {
     margin: 0;
