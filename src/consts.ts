@@ -27,7 +27,7 @@ export const EXPERIENCES = [
     date: "February 2019 - February 2020",
     points: [
       "Designed and supervised the installation of the first Electric Vehicle (EV) charging station for the University of the West Indies (UWI), St. Augustine campus",
-      "Wrote and submitted 6 research papers for publication in the field of renewable energy, EVs and Machine Learning (ML)",
+      "Wrote and submitted six (6) research papers for publication in the field of renewable energy, EVs and Machine Learning (ML)",
       "Delivered training workshops for power system modelling in the PowerFactory software",
       "Facilitated an external PhD study by partially modelling Trinidad and Tobago's transmission and distribution system",
     ],
@@ -53,9 +53,8 @@ export const EXPERIENCES = [
     points: [
       "A core developer of the MyDigicel App. Built in flutter and published to both google play and ios stores. Has more than 10 million downloads",
       "Designed, developed and deployed DigiAssist, a platform for both customers and internal agents to troubleshoot modem issues with an automated flow. UI/UX designs were created in figma",
-
-      "Automated manual tasks across the entire company (using primarily python)",
-      "Effectively deployed numerous web applications to meet business needs",
+      "Automated manual tasks across many teams (using primarily python)",
+      "Designed, developed and deployed numerous web applications to meet business needs",
     ],
   },
 ];
