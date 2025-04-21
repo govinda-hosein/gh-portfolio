@@ -225,6 +225,48 @@ export const PROJECTS = [
       },
     ],
   },
+  {
+    name: "PROTool",
+    description:
+      "A web based productivity measurement analytic tool was design and development for the client which allowed for the secure capture of business level data for all business sectors in St Lucia. The front end also allowed for the processing of online payments and seamless integration into the St Lucia E-Government platform. The back end of the PROTool allows for the analysis of the business data and the generation of tailored reports for use by the NCPC and other stakeholders in order to inform the creation of national policy and other governance and planning needs.",
+    tags: [],
+    image: "/img/projects/protool.png",
+    links: [
+      {
+        icon: "/icons/link.png",
+        href: "https://protool.govt.lc/",
+        title: "Link",
+      },
+    ],
+  },
+  {
+    name: "Market Information App",
+    description:
+      "A mobile application developed for NAMDEVCO to collect market information (Prive and Volume) data from marketing outlets identified for fresh produce and seafood in Trinidad and Tobago.",
+    tags: [],
+    image: "/img/projects/nmi.png",
+    links: [
+      {
+        icon: "/icons/googleplay.png",
+        href: "https://play.google.com/store/apps/details?id=com.raziel619.nmi_mobile",
+        title: "Link",
+      },
+    ],
+  },
+  {
+    name: "Crop Production and Monitoring App",
+    description:
+      "A mobile application developed for NAMDEVCO to collect plot and crop yield data from registered farmers in Trinidad and Tobago.",
+    tags: [],
+    image: "/img/projects/ncpma.png",
+    links: [
+      {
+        icon: "/icons/googleplay.png",
+        href: "https://play.google.com/store/apps/details?id=com.raziel619.ncpma_mobile",
+        title: "Link",
+      },
+    ],
+  },
 ];
 
 export const SERVICES = [
