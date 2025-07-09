@@ -1,5 +1,3 @@
-import React from "react";
-
 const TagColors = [
   "blue-text-gradient",
   "green-text-gradient",
@@ -10,12 +8,8 @@ const ProjectCard = ({ name, description, image, tags, links }) => {
   return (
     <div className="p-1 h-fit bg-highlight rounded-2xl">
       <div className="bg-white p-5 rounded-2xl w-full">
-        <div className="relative w-full h-[230px]">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover rounded-2xl"
-          />
+        <div className="relative w-full">
+          <img src={image} alt={name} className="w-full rounded-2xl" />
           <div className="absolute inset-0 flex m-3">
             {links.map((link, index) => (
               <a
