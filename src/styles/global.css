@@ -30,14 +30,14 @@
   font-display: swap;
 }
 body {
-  font-family: "PatrickHand", sans-serif;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
   background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: 1.5em;
+  font-size: 1.1em;
   line-height: 1.7;
   @apply text-text bg-background;
 }
@@ -45,7 +45,6 @@ body {
 html {
   font-size: 18px;
 }
-
 
 main {
   margin: auto;
@@ -130,7 +129,6 @@ img {
 code {
   counter-reset: step;
   counter-increment: step 0;
-
 }
 
 code .line::before {
