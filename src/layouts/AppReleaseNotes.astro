@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import { extractRelativeFolder } from "src/utils";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+const { title, description, filePath, pubDate, updatedDate, heroImage } =
+  Astro.props;
+const folderName = extractRelativeFolder(filePath);
+
+// Fetch all posts from the specific app's posts folder
+const posts = (await getCollection("release-notes"))
+  .filter((post) => {
+    // Check if the post is in the posts subfolder of this app
+    return post.filePath!.includes(`${folderName}/posts/`);
+  })
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <img src={heroImage} alt="" class="w-24 h-24 rounded-full mb-4" />
+
+        <div class="prose">
+          <div class="title">
+            <h3>{title} Release Notes</h3>
+          </div>
+        </div>
+      </article>
+      <section>
+        {posts.map((post) => <p>{post.data.title}</p>)}
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

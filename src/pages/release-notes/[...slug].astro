@@ -1,6 +1,7 @@
 ---
+import AppReleaseNotes from "@layouts/AppReleaseNotes.astro";
+import ReleaseNotesPost from "@layouts/ReleaseNotesPost.astro";
 import { type CollectionEntry, getCollection, render } from "astro:content";
-import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
   const apps = await getCollection("release-notes");
@@ -15,6 +16,14 @@ const app = Astro.props;
 const { Content } = await render(app);
 ---
 
-<BlogPost {...app.data}>
-  <Content />
-</BlogPost>
+{
+  app.filePath?.includes("index") ? (
+    <AppReleaseNotes {...app.data} filePath={app.filePath}>
+      <Content />
+    </AppReleaseNotes>
+  ) : (
+    <ReleaseNotesPost {...app.data}>
+      <Content />
+    </ReleaseNotesPost>
+  )
+}
