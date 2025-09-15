@@ -5,9 +5,11 @@ import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 
-const posts = (await getCollection("release-notes")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const apps = (await getCollection("release-notes"))
+  .filter((app) => {
+    return app.filePath!.includes("index");
+  })
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!doctype html>
@@ -88,7 +90,16 @@ const posts = (await getCollection("release-notes")).sort(
     <main>
       <section>
         <ul>
-          {posts.map((post) => <li>hello</li>)}
+          {
+            apps.map((app) => (
+              <li>
+                <a href={`/release-notes/${app.id}/`}>
+                  <img src={app.data.heroImage} alt="" />
+                  <h4 class="title">{app.data.title}</h4>
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </section>
     </main>
