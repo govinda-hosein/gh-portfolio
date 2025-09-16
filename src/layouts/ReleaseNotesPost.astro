@@ -4,7 +4,7 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
 
-const { title, description, indexPage, pubDate, updatedDate, heroImage } =
+const { title, description, indexPage, pubDate, updatedDate, heroImage, tag } =
   Astro.props;
 
 console.log(indexPage);
@@ -12,7 +12,7 @@ console.log(indexPage);
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={"Release Notes - " + title} description={description} />
   </head>
 
   <body>
@@ -29,15 +29,9 @@ console.log(indexPage);
         </div>
         <div class="prose">
           <div class="title">
-            <div class="date">
+            <div class="flex flex-row gap-2 text-sm">
+              <p class="!mb-2 text-slate-700 font-bold">{tag} |</p>
               <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
             </div>
             <h1>{title} - <span class="text-highlight">Release Notes</span></h1>
             <hr class="!my-6" />
