@@ -12,17 +12,32 @@ export async function getStaticPaths() {
 }
 type Props = CollectionEntry<"release-notes">;
 
-const app = Astro.props;
-const { Content } = await render(app);
+const page = Astro.props;
+const { Content } = await render(page);
+
+// If this is not an index page, fetch the index page data
+let indexPage = null;
+if (!page.filePath?.includes("index")) {
+  const allApps = await getCollection("release-notes");
+
+  // Extract the app folder name from the current page path
+  const pathParts = page.id.split("/");
+  const appFolderName = pathParts[0]; // e.g., "namdevco-cpma" from "namdevco-cpma/posts/v1.0.0"
+
+  // Find the index page for this app
+  indexPage = allApps.find(
+    (app) => app.id === appFolderName && app.filePath?.includes("index")
+  );
+}
 ---
 
 {
-  app.filePath?.includes("index") ? (
-    <AppReleaseNotes {...app.data} filePath={app.filePath}>
+  page.filePath?.includes("index") ? (
+    <AppReleaseNotes {...page.data} filePath={page.filePath}>
       <Content />
     </AppReleaseNotes>
   ) : (
-    <ReleaseNotesPost {...app.data}>
+    <ReleaseNotesPost {...page.data} indexPage={indexPage!.data}>
       <Content />
     </ReleaseNotesPost>
   )
