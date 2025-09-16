@@ -1,0 +1,44 @@
+---
+import AppReleaseNotes from "@layouts/AppReleaseNotes.astro";
+import ReleaseNotesPost from "@layouts/ReleaseNotesPost.astro";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const apps = await getCollection("release-notes");
+  return apps.map((app) => ({
+    params: { slug: app.id },
+    props: app,
+  }));
+}
+type Props = CollectionEntry<"release-notes">;
+
+const page = Astro.props;
+const { Content } = await render(page);
+
+// If this is not an index page, fetch the index page data
+let indexPage = null;
+if (!page.filePath?.includes("index")) {
+  const allApps = await getCollection("release-notes");
+
+  // Extract the app folder name from the current page path
+  const pathParts = page.id.split("/");
+  const appFolderName = pathParts[0]; // e.g., "namdevco-cpma" from "namdevco-cpma/posts/v1.0.0"
+
+  // Find the index page for this app
+  indexPage = allApps.find(
+    (app) => app.id === appFolderName && app.filePath?.includes("index")
+  );
+}
+---
+
+{
+  page.filePath?.includes("index") ? (
+    <AppReleaseNotes {...page.data} filePath={page.filePath}>
+      <Content />
+    </AppReleaseNotes>
+  ) : (
+    <ReleaseNotesPost {...page.data} indexPage={indexPage!.data}>
+      <Content />
+    </ReleaseNotesPost>
+  )
+}

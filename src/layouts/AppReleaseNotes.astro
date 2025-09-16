@@ -1,0 +1,63 @@
+---
+import FormattedDate from "@components/FormattedDate.astro";
+import { getCollection } from "astro:content";
+import { extractRelativeFolder } from "src/utils";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+const { title, description, filePath, pubDate, updatedDate, heroImage } =
+  Astro.props;
+const folderName = extractRelativeFolder(filePath);
+
+// Fetch all posts from the specific app's posts folder
+const posts = (await getCollection("release-notes"))
+  .filter((post) => {
+    // Check if the post is in the posts subfolder of this app
+    return post.filePath!.includes(`${folderName}/posts/`);
+  })
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <img src={heroImage} alt="" class="w-24 h-24 rounded-full" />
+
+        <div class="prose mt-4 mb-4">
+          <div class="title">
+            <h3>{title} Release Notes</h3>
+          </div>
+        </div>
+      </article>
+      <section>
+        <ul class="!list-none">
+          {
+            posts.map((post) => (
+              <li class="bg-purple-100 border-l-8 border-purple-600 rounded-xl px-5 py-2 my-2 hover:shadow-xl hover:bg-purple-200">
+                <a href={`/release-notes/${post.id}/`} class="!no-underline ">
+                  <div class="flex flex-row gap-2 text-sm mb-1">
+                    <p class="text-slate-700 font-bold">{post.data.tag}</p>
+                    <p>|</p>
+                    <FormattedDate date={post.data.pubDate} />
+                  </div>
+                  <p class=" !text-black !m-0">
+                    <strong class="!text-lg">{post.data.title}</strong> -{" "}
+                    {post.data.description}
+                  </p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

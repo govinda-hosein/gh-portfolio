@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+
+const apps = (await getCollection("release-notes"))
+  .filter((app) => {
+    return app.filePath!.includes("index");
+  })
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul li {
+        width: 300px;
+      }
+      ul li * {
+        text-decoration: none;
+        transition: 0.2s ease;
+      }
+
+      @media (max-width: 720px) {
+        ul {
+          gap: 0.2rem;
+        }
+        ul li {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <ul class="!list-none">
+          {
+            apps.map((app) => (
+              <li class="bg-purple-100 rounded-md p-5 my-2 hover:shadow-xl hover:bg-purple-200">
+                <a
+                  href={`/release-notes/${app.id}/`}
+                  class="!no-underline flex flex-row md:flex-col  gap-5 items-center"
+                >
+                  <img
+                    src={app.data.heroImage}
+                    class="!w-16 !h-16 border-4 border-purple-900 !rounded-full !object-cover !overflow-hidden "
+                  />
+                  <div class="flex flex-col">
+                    <h4 class="title !text-black">{app.data.title}</h4>
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
