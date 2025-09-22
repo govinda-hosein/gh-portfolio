@@ -37,7 +37,7 @@ if (!page.filePath?.includes("index")) {
       <Content />
     </AppReleaseNotes>
   ) : (
-    <ReleaseNotesPost {...page.data} indexPage={indexPage!.data}>
+    <ReleaseNotesPost {...page.data} indexPage={indexPage}>
       <Content />
     </ReleaseNotesPost>
   )

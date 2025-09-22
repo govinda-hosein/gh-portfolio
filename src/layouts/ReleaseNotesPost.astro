@@ -20,12 +20,15 @@ console.log(indexPage);
     <main>
       <article>
         <div class="flex flex-col items-center gap-4">
-          <img
-            class="!w-28 !h-28 !rounded-full"
-            src={indexPage.heroImage}
-            alt=""
-          />
-          <p><strong>{indexPage.title}</strong></p>
+          <a href={`/release-notes/${indexPage.id}/`}
+            ><img
+              class="!w-28 !h-28 !rounded-full"
+              src={indexPage.data.heroImage}
+              alt=""
+            /></a
+          >
+
+          <p><strong>{indexPage.data.title}</strong></p>
         </div>
         <div class="prose">
           <div class="title">
