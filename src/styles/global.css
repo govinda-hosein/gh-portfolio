@@ -27,15 +27,26 @@
 }
 body {
   font-family: sans-serif;
-  margin: 0;
+  margin: auto;
   padding: 0;
   text-align: left;
   background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: 1.1em;
+  font-size: 1em;
   line-height: 1.7;
+  max-width: 900px;
   @apply text-text bg-background;
+}
+
+@media (max-width: 720px) {
+  body {
+    font-size: 16px;
+    margin: 0;
+  }
+  main {
+    padding: 1em;
+  }
 }
 
 html {
