@@ -33,7 +33,7 @@ body {
   background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: 1em;
+  font-size: 0.9em;
   line-height: 1.7;
   max-width: 900px;
   @apply text-text bg-background;
