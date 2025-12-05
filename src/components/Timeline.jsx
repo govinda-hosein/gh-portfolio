@@ -1,8 +1,8 @@
-import React from "react";
 import "react-vertical-timeline-component/style.min.css";
 
-// Import as a default module to avoid CommonJS issues
 import pkg from "react-vertical-timeline-component";
+
+// Import as a default module to avoid CommonJS issues
 
 const VerticalTimeline = pkg.VerticalTimeline;
 const VerticalTimelineElement = pkg.VerticalTimelineElement;
@@ -34,7 +34,7 @@ const TimelineCard = ({ timelineItem }) => (
       {timelineItem.points.map((point, index) => (
         <li
           key={`experience-point-${index}`}
-          className="text-white-100 text-[18px] pl-1 tracking-wider"
+          className="text-white-100 pl-1 tracking-wider"
         >
           {point}
         </li>
@@ -45,7 +45,7 @@ const TimelineCard = ({ timelineItem }) => (
 
 const Timeline = ({ items }) => {
   return (
-    <VerticalTimeline lineColor="#915eff">
+    <VerticalTimeline lineColor="#915eff" layout="1-column-left">
       {items.map((item, index) => (
         <TimelineCard key={index} timelineItem={item} />
       ))}
