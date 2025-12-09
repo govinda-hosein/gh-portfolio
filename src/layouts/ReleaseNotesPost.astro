@@ -6,8 +6,6 @@ import Header from "../components/Header.astro";
 
 const { title, description, indexPage, pubDate, updatedDate, heroImage, tag } =
   Astro.props;
-
-console.log(indexPage);
 ---
 
 <html lang="en">
@@ -22,7 +20,7 @@ console.log(indexPage);
         <div class="flex flex-col items-center gap-4">
           <a href={`/release-notes/${indexPage.id}/`}
             ><img
-              class="!w-28 !h-28 !rounded-full"
+              class="w-28! h-28! rounded-full!"
               src={indexPage.data.heroImage}
               alt=""
             /></a
@@ -33,11 +31,11 @@ console.log(indexPage);
         <div class="prose">
           <div class="title">
             <div class="flex flex-row gap-2 text-sm">
-              <p class="!mb-2 text-slate-700 font-bold">{tag} |</p>
+              <p class="mb-2! text-slate-700 font-bold">{tag} |</p>
               <FormattedDate date={pubDate} />
             </div>
             <h1>{title} - <span class="text-highlight">Release Notes</span></h1>
-            <hr class="!my-6" />
+            <hr class="my-6!" />
           </div>
           <slot />
         </div>

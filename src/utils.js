@@ -18,7 +18,7 @@ export function extractFolder(filePath) {
   return parts.slice(0, -1).join("/");
 }
 
-export function extractRelativeFolder(filePath, basePath = "src/content") {
+export function extractRelativeFolder(filePath, basePath = "./src/content") {
   const normalizedPath = filePath.replace(/\\/g, "/");
   const baseIndex = normalizedPath.indexOf(basePath);
   if (baseIndex !== -1) {
