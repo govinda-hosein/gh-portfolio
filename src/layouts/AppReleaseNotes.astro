@@ -1,10 +1,10 @@
 ---
 import FormattedDate from "@components/FormattedDate.astro";
 import { getCollection } from "astro:content";
-import { extractRelativeFolder } from "src/utils";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { extractRelativeFolder } from "../utils";
 
 const { title, description, filePath, pubDate, updatedDate, heroImage } =
   Astro.props;
@@ -37,18 +37,18 @@ const posts = (await getCollection("release-notes"))
         </div>
       </article>
       <section>
-        <ul class="!list-none !pl-0">
+        <ul class="list-none! pl-0!">
           {
             posts.map((post) => (
               <li class="bg-purple-100 border-l-8 border-purple-600 rounded-xl px-5 py-2 my-4 hover:shadow-xl hover:bg-purple-200">
-                <a href={`/release-notes/${post.id}/`} class="!no-underline ">
+                <a href={`/release-notes/${post.id}/`} class="no-underline! ">
                   <div class="flex flex-row gap-2 text-sm mb-1">
                     <p class="text-slate-700 font-bold">{post.data.tag}</p>
                     <p>|</p>
                     <FormattedDate date={post.data.pubDate} />
                   </div>
-                  <p class=" !text-black !m-0">
-                    <strong class="!text-lg">{post.data.title}</strong> -{" "}
+                  <p class=" text-black! m-0!">
+                    <strong class="text-lg!">{post.data.title}</strong> -{" "}
                     {post.data.description}
                   </p>
                 </a>

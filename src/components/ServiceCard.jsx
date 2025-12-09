@@ -1,7 +1,4 @@
-import React from "react";
-
 import { motion } from "framer-motion";
-import { fadeIn } from "src/motion";
 
 function ServiceCard({ index, title, icon }) {
   return (
