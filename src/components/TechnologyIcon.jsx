@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { springIn } from "../motion";
 
@@ -14,7 +13,7 @@ function TechnologyIcon({ technology, index }) {
       <img
         src={technology.icon}
         title={technology.name}
-        className="!h-20 !w-20 p-2 bg-white !rounded-full"
+        className="h-20! w-20! p-2 bg-white rounded-full!"
         alt=""
       />
       <p>{technology.name}</p>

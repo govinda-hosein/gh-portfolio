@@ -1,7 +1,4 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { springIn } from "../motion";
-import { div } from "framer-motion/client";
 
 const ExternalCard = ({ index, link, title, subtitle, image }) => (
   <div className="p-1 rounded-2xl bg-highlight">
@@ -12,7 +9,7 @@ const ExternalCard = ({ index, link, title, subtitle, image }) => (
           alt="Image"
           className="w-16 h-16 rounded-full bg-tertiary p-4 "
         />
-        <a href={link} className="!text-black hover:underline" target="_blank">
+        <a href={link} className="text-black! hover:underline" target="_blank">
           {title} <br /> {subtitle}
         </a>
       </div>

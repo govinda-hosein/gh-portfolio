@@ -1,7 +1,12 @@
 ---
 import BaseHead from "@components/BaseHead.astro";
+import ExternalCard from "@components/ExternalCard";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
+import ProjectCard from "@components/ProjectCard";
+import ServiceCard from "@components/ServiceCard";
+import TechnologyIcon from "@components/TechnologyIcon";
+import Timeline from "@components/Timeline";
 import TitleSubtitle from "@components/TitleSubtitle.astro";
 import {
   EXPERIENCES,
@@ -14,11 +19,6 @@ import {
   SITE_TITLE,
   TOOLBOX,
 } from "../consts";
-import ExternalCard from "@components/ExternalCard";
-import ProjectCard from "@components/ProjectCard";
-import ServiceCard from "@components/ServiceCard";
-import Timeline from "@components/Timeline";
-import TechnologyIcon from "@components/TechnologyIcon";
 
 const projectsMidIndex = Math.ceil(PROJECTS.length / 2);
 const projectsCol1 = PROJECTS.slice(0, projectsMidIndex);
@@ -34,7 +34,7 @@ const projectsCol2 = PROJECTS.slice(projectsMidIndex);
     <Header />
     <main>
       <div class="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
-        <img src="/img/me.png" class="w-35 !h-35" alt="Site logo" />
+        <img src="/img/me.png" class="w-35 h-35!" alt="Site logo" />
         <div>
           <h2>
             <strong

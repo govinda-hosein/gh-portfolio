@@ -24,8 +24,8 @@ const TimelineCard = ({ timelineItem }) => (
     }
   >
     <div>
-      <h4 className="!text-highlight ">{timelineItem.title}</h4>
-      <p className="!text-2xl" style={{ margin: 0 }}>
+      <h4 className="text-highlight! ">{timelineItem.title}</h4>
+      <p className="text-2xl!" style={{ margin: 0 }}>
         <strong>{timelineItem.company_name}</strong>
       </p>
     </div>

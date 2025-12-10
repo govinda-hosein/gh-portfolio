@@ -164,7 +164,7 @@ blockquote {
   font-size: 1.333em;
 }
 hr {
-  @apply pt-[2px] bg-black mx-8 md:mx-16 my-16;
+  @apply pt-0.5 bg-black mx-8 md:mx-16 my-16;
 }
 @media (max-width: 720px) {
   body {
